@@ -1,5 +1,0 @@
-package todo;
-
-public enum Tag {
-    MILITARY,CIVILIAN, MILITARYPLANE,MILITARYSHIP,AIRPORT
-}

@@ -1,4 +1,4 @@
-package todo;
+package classes;
 
 import javafx.scene.Group;
 
