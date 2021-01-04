@@ -1,28 +1,28 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        // Mapa
-        Parent map = FXMLLoader.load(getClass().getResource("map.fxml"));
-        primaryStage.setTitle("Map Window");
-        primaryStage.setScene(new Scene(map));
-        primaryStage.show();
-
-        // Panel Kontrolny
-        Parent controlPanel = FXMLLoader.load(getClass().getResource("controlpanel.fxml"));
-        Stage secondaryStage = new Stage();
-        secondaryStage.setTitle("Control Panel");
-        secondaryStage.setScene(new Scene(controlPanel));
-        secondaryStage.show();
-
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("map.fxml"));
+            Parent root = loader.load();
+            
+            primaryStage.setTitle("Map Window");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setResizable(false);
+            primaryStage.setOnHidden(event -> Platform.exit());
+            primaryStage.show();
+        } catch (IOException e) { e.printStackTrace(); }
     }
-
-
+    
+    
     public static void main(String[] args) {
         launch(args);
     }

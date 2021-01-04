@@ -123,10 +123,94 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="entityListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
+                                          <ListView fx:id="entityListView" layoutX="19.0" layoutY="14.0" onMouseClicked="#entityListViewOnClicked" prefHeight="290.0" prefWidth="200.0" />
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
+                                       <children>
+                                          <Text layoutX="139.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#ff00f9" offset="0.011494252873563218" />
+                                                      <Stop color="#2ded49" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <Text layoutX="133.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozycja">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                                   <stops>
+                                                      <Stop color="#00ff88" />
+                                                      <Stop color="#5cb9f7" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="nameEntityDisplay" editable="false" layoutX="91.0" layoutY="47.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <Separator layoutX="89.0" layoutY="84.0" prefHeight="5.0" prefWidth="176.0" />
+                                          <TextField editable="false" layoutX="91.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0" fx:id="xEntityDisplay">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="yEntityDisplay" editable="false" layoutX="185.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="idEntityDisplay" editable="false" layoutX="94.0" layoutY="269.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <Text layoutX="164.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                                   <stops>
+                                                      <Stop color="#00ff88" />
+                                                      <Stop color="#5cb9f7" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <Text layoutX="135.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotacja">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#ff00f9" offset="0.011494252873563218" />
+                                                      <Stop color="#2ded49" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="rotationEntityDisplay" editable="false" layoutX="140.0" layoutY="189.0" prefHeight="31.0" prefWidth="80.0">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <Separator layoutX="54.0" layoutY="232.0" prefHeight="5.0" prefWidth="250.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </items>
                               </SplitPane>
                            </content>
@@ -469,7 +553,7 @@
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <Button fx:id="addEntityButton" layoutX="201.0" layoutY="252.0" mnemonicParsing="false" text="Dodaj Entity" textAlignment="CENTER">
+                                    <Button fx:id="addEntityButton" layoutX="201.0" layoutY="252.0" mnemonicParsing="false" onAction="#addToEntityListView" text="Dodaj Entity" textAlignment="CENTER">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>

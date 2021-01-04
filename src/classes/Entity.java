@@ -1,58 +1,43 @@
 package classes;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
 
 public class Entity {
-    private final SVGPath sprite;
-    private Point2D coords;
-    private double rotation;
-
-    Entity(String svgPath, Point2D point, double rotation) {
-        this(svgPath, point.getX(), point.getY(), rotation);
+    private final BorderPane sprite;
+    private final int id;
+    private final TYPE type;
+    
+    private void resize(SVGPath svg, double width, double height) {
+        double originalWidth = svg.prefWidth(-1);
+        double originalHeight = svg.prefHeight(originalWidth);
+        
+        double scaleX = width / originalWidth;
+        double scaleY = height / originalHeight;
+        
+        svg.setScaleX(scaleX);
+        svg.setScaleY(scaleY);
     }
-
-    public Entity(final String svgPath, final double x, final double y, double rotation) {
-        this.sprite = new SVGPath();
-        this.sprite.setContent(svgPath);
-
-        this.rotation = rotation % 360.0d;
-        this.coords = new Point2D(x, y);
+    
+    public Entity(TYPE type, Point2D point) { this(type, point.getX(), point.getY()); }
+    public Entity(final TYPE type, final double x, final double y) {
+        var svg = new SVGPath();
+        svg.setContent(type.getSvg());
+        this.resize(svg, type.getPreferredSize().getX(), type.getPreferredSize().getY());
+        sprite = new BorderPane(svg);
+        sprite.setLayoutX(x);
+        sprite.setLayoutY(y);
+        sprite.setRotate(type.getFrontRotation());
+        
+        this.id = 1; // TODO ID generator
+        this.type = type;
     }
-
-    public Point2D getCoords() {
-        return coords;
-    }
-
-    public void modifyCoords(double x, double y) {
-        coords = coords.add(x, y);
-    }
-
-    public void modifyCoords(Point2D point) {
-        coords = coords.add(point);
-    }
-
-    public void setCoords(Point2D point) {
-        coords = point;
-    }
-
-    public void setCoords(double x, double y) {
-        coords = new Point2D(x, y);
-    }
-
-    public SVGPath getSprite() {
-        return sprite;
-    }
-
-    public double getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(double rotation) {
-        this.rotation = rotation % 360.0d;
-    }
-
-    public void modifyRotation(double rotation) {
-        this.rotation = (this.rotation + rotation) % 360.0d;
-    }
+    
+    public int getID() { return this.id; }
+    public TYPE getType() { return this.type; }
+    public BorderPane getSprite() { return sprite; }
+    
+    @Override public String toString() { return type + " id: " + id; }
 }

@@ -6,17 +6,16 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Polyline?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MapController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar blendMode="SRC_ATOP" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Control Panel">
             <items>
-              <MenuItem mnemonicParsing="false" text="Open" />
+              <MenuItem fx:id="buttonControlPanelOpen" mnemonicParsing="false" onAction="#buttonControlPanelOnAction" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+                  <MenuItem fx:id="buttonQuit" mnemonicParsing="false" onAction="#buttonQuitOnAction" text="Quit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="File">
@@ -34,10 +33,6 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Polyline fill="TRANSPARENT" layoutX="117.0" layoutY="201.0" points="110.0, -152.0, 297.0, -97.0, 297.0, 87.0, 90.0, 77.0" strokeType="INSIDE" />
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="map" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

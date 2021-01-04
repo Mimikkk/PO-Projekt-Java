@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+<!DOCTYPE TYPE PUBLIC "-//W3C//DTD classes.TYPE 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="400" height="400">
+<TYPE xmlns="http://www.w3.org/2000/TYPE" version="1.0" width="400" height="400">
   <defs id="defs4" />
   <g transform="translate(-150,-110)">
     <path
@@ -10,4 +10,4 @@
        id="path3166"
        style="fill:#008000;stroke:#002000;" />
   </g>
-</svg>
+</TYPE>
