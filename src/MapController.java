@@ -1,23 +1,20 @@
-import classes.Entity;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -28,16 +25,34 @@ public class MapController implements Initializable {
     
     @FXML private MenuItem buttonControlPanelOpen;
     @FXML private MenuItem buttonQuit;
+    
     @FXML private AnchorPane map;
     public AnchorPane getMap() { return map; }
     
     @FXML private void buttonControlPanelOnAction(ActionEvent event) {
         this.controlPanelStage.show();
+        this.controlPanelStage.toFront();
+    }
+    @FXML private void buttonQuitOnAction(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Dialog");
+        alert.setHeaderText("Are you sure you want to exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
     
-    @FXML private void buttonQuitOnAction(ActionEvent event) {
-        // TODO Confirmation Window
-        Platform.exit();
+    @FXML public Optional<Circle> getRandomCircle() {
+        this.map.getChildren().forEach((x) -> {
+            System.out.println(x.getUserData());
+        });
+        
+        var circles = this.map.getChildren()
+                .filtered((x) -> x.getUserData() != null && x.getUserData().equals("Circle"));
+        if (circles.isEmpty()) {return Optional.empty();}
+        return Optional.ofNullable((Circle) circles.get(new Random().nextInt(circles.size())));
     }
     
     @Override public void initialize(URL location, ResourceBundle resources) {

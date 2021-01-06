@@ -1,3 +1,5 @@
+import classes.Entity;
+import classes.TYPE;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    @Override
-    public void start(Stage primaryStage) {
+    
+    @Override public void start(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("map.fxml"));
             Parent root = loader.load();

@@ -6,7 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
 
 public class Entity {
-    private final BorderPane sprite;
+    private final SVGPath sprite;
     private final int id;
     private final TYPE type;
     
@@ -25,11 +25,7 @@ public class Entity {
     public Entity(final TYPE type, final double x, final double y) {
         var svg = new SVGPath();
         svg.setContent(type.getSvg());
-        this.resize(svg, type.getPreferredSize().getX(), type.getPreferredSize().getY());
-        sprite = new BorderPane(svg);
-        sprite.setLayoutX(x);
-        sprite.setLayoutY(y);
-        sprite.setRotate(type.getFrontRotation());
+        sprite = svg;
         
         this.id = 1; // TODO ID generator
         this.type = type;
@@ -37,7 +33,7 @@ public class Entity {
     
     public int getID() { return this.id; }
     public TYPE getType() { return this.type; }
-    public BorderPane getSprite() { return sprite; }
+    public SVGPath getSprite() { return sprite; }
     
     @Override public String toString() { return type + " id: " + id; }
 }

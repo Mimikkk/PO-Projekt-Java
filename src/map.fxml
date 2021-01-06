@@ -9,7 +9,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MapController">
    <top>
-      <MenuBar blendMode="SRC_ATOP" BorderPane.alignment="CENTER">
+      <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Control Panel">
             <items>
@@ -33,6 +33,6 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane fx:id="map" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="map" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

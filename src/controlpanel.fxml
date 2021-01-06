@@ -119,7 +119,7 @@
                         </Tab>
                         <Tab text="Entity">
                            <content>
-                              <SplitPane dividerPositions="0.4" prefHeight="160.0" prefWidth="200.0">
+                              <SplitPane dividerPositions="0.4" focusTraversable="false" prefHeight="160.0" prefWidth="200.0">
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
@@ -155,23 +155,23 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Text>
-                                          <TextField fx:id="nameEntityDisplay" editable="false" layoutX="91.0" layoutY="47.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
+                                          <TextField fx:id="nameEntityDisplay" disable="true" editable="false" layoutX="91.0" layoutY="47.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                              </font>
                                           </TextField>
                                           <Separator layoutX="89.0" layoutY="84.0" prefHeight="5.0" prefWidth="176.0" />
-                                          <TextField editable="false" layoutX="91.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0" fx:id="xEntityDisplay">
+                                          <TextField disable="true" editable="false" layoutX="91.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0" fx:id="xEntityDisplay">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="yEntityDisplay" editable="false" layoutX="185.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0">
+                                          <TextField fx:id="yEntityDisplay" disable="true" editable="false" layoutX="185.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="idEntityDisplay" editable="false" layoutX="94.0" layoutY="269.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
+                                          <TextField fx:id="idEntityDisplay" disable="true" editable="false" layoutX="94.0" layoutY="269.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                              </font>
@@ -203,12 +203,28 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Text>
-                                          <TextField fx:id="rotationEntityDisplay" editable="false" layoutX="140.0" layoutY="189.0" prefHeight="31.0" prefWidth="80.0">
+                                          <TextField fx:id="rotationEntityDisplay" disable="true" editable="false" layoutX="140.0" layoutY="189.0" prefHeight="31.0" prefWidth="80.0">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                              </font>
                                           </TextField>
                                           <Separator layoutX="54.0" layoutY="232.0" prefHeight="5.0" prefWidth="250.0" />
+                                          <Button fx:id="buttonMoveToSpecifiedTest" layoutX="9.0" layoutY="50.0" mnemonicParsing="false" onAction="#buttonMoveToSpecifiedOnClick" text="Move To" />
+                                          <TextField layoutY="74.0" prefHeight="31.0" prefWidth="80.0" promptText="x" text="0" fx:id="xEntityDisplayTest">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="yEntityDisplayTest" layoutY="107.0" prefHeight="31.0" prefWidth="80.0" promptText="y" text="0">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <Button fx:id="buttonMoveToCircleRandomTest" layoutX="2.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonMoveToRandomCircleOnClick" text="Move to Random Circle" />
+                                          <Button fx:id="buttonCreateAtRandomTest" layoutX="-1.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonCreateAtRandomCircleOnClick" text="Create Circle At Random" />
+                                          <Button fx:id="buttonMoveToRandomTest" layoutX="1.0" layoutY="205.0" mnemonicParsing="false" onAction="#buttonMoveToRandomOnClick" text="Move To Random Point" />
+                                          <Button fx:id="buttonCreateAtSpecifiedCircle" layoutX="-9.0" layoutY="138.0" mnemonicParsing="false" onAction="#buttonCreateAtSpecifiedCircleOnClick" text="Create Circle At" />
+                                          <Button fx:id="buttonMoveToCircleSpecifiedTest" layoutX="2.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonMoveToSpecifiedOnClick" text="Move to Selected Circle" />
                                        </children>
                                     </AnchorPane>
                                  </items>
@@ -227,21 +243,25 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
                                  <children>
-                                    <SVGPath content="m 1397,1324 q 0,-87 -149,-236 l -240,-240 143,-746 1,-6 q 0,-14 -9,-23 L 1079,9 q -9,-9 -23,-9 -21,0 -29,18 L 753,593 508,348 Q 576,110 576,96 576,82 567,73 L 503,9 Q 494,0 480,0 462,0 452,16 L 297,296 17,451 q -17,9 -17,28 0,14 9,23 l 64,65 q 9,9 23,9 14,0 252,-68 L 593,753 18,1027 q -18,8 -18,29 0,14 9,23 l 64,64 q 9,9 23,9 4,0 6,-1 l 746,-143 240,240 q 149,149 236,149 32,0 52.5,-20.5 20.5,-20.5 20.5,-52.5 z" layoutX="-260.0" layoutY="-444.0" rotate="-180.0" scaleX="0.05" scaleY="0.05">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                             <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#1baacf" offset="0.011494252873563218" />
-                                                <Stop color="#bd0ec4" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                       <rotationAxis>
-                                          <Point3D x="180.0" y="-180.0" z="1.0" />
-                                       </rotationAxis>
-                                    </SVGPath>
-                                    <SVGPath content="m 1397,1324 q 0,-87 -149,-236 l -240,-240 143,-746 1,-6 q 0,-14 -9,-23 L 1079,9 q -9,-9 -23,-9 -21,0 -29,18 L 753,593 508,348 Q 576,110 576,96 576,82 567,73 L 503,9 Q 494,0 480,0 462,0 452,16 L 297,296 17,451 q -17,9 -17,28 0,14 9,23 l 64,65 q 9,9 23,9 14,0 252,-68 L 593,753 18,1027 q -18,8 -18,29 0,14 9,23 l 64,64 q 9,9 23,9 4,0 6,-1 l 746,-143 240,240 q 149,149 236,149 32,0 52.5,-20.5 20.5,-20.5 20.5,-52.5 z" layoutX="-586.0" layoutY="-685.0" scaleX="0.2" scaleY="0.2">
+                                    <BorderPane layoutX="448.5000915527344" layoutY="226.5006103515625" rotate="270.0">
+                                       <center>
+                                          <SVGPath content="M 20 1.045 C 20 1.875 19.289 3.002 17.867 4.424 L 14.431 7.86 L 16.478 18.54 L 16.493 18.626 C 16.493 18.759 16.45 18.869 16.364 18.955 L 15.447 19.871 C 15.362 19.957 15.252 20 15.118 20 C 14.918 20 14.779 19.914 14.703 19.742 L 10.78 11.51 L 7.273 15.018 C 7.922 17.289 8.246 18.492 8.246 18.626 C 8.246 18.759 8.203 18.869 8.117 18.955 L 7.201 19.871 C 7.115 19.957 7.006 20 6.872 20 C 6.7 20 6.566 19.924 6.471 19.771 L 4.252 15.762 L 0.243 13.543 C 0.081 13.457 0 13.324 0 13.142 C 0 13.009 0.043 12.899 0.129 12.813 L 1.045 11.883 C 1.131 11.797 1.241 11.754 1.374 11.754 C 1.508 11.754 2.711 12.078 4.982 12.727 L 8.49 9.22 L 0.258 5.297 C 0.086 5.221 0 5.082 0 4.882 C 0 4.748 0.043 4.639 0.129 4.553 L 1.045 3.636 C 1.131 3.551 1.241 3.508 1.374 3.508 C 1.413 3.508 1.441 3.512 1.46 3.522 L 12.14 5.569 L 15.576 2.133 C 16.998 0.711 18.125 0 18.955 0 C 19.26 0 19.511 0.098 19.707 0.294 C 19.902 0.489 20 0.74 20 1.045 Z" scaleX="3.0" scaleY="3.0">
+                                             <fill>
+                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#1baacf" offset="0.011494252873563218" />
+                                                      <Stop color="#bd0ec4" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                             <rotationAxis>
+                                                <Point3D />
+                                             </rotationAxis>
+                                          </SVGPath>
+                                       </center>
+                                    </BorderPane>
+                                    <SVGPath content="M 20 1.045 C 20 1.875 19.289 3.002 17.867 4.424 L 14.431 7.86 L 16.478 18.54 L 16.493 18.626 C 16.493 18.759 16.45 18.869 16.364 18.955 L 15.447 19.871 C 15.362 19.957 15.252 20 15.118 20 C 14.918 20 14.779 19.914 14.703 19.742 L 10.78 11.51 L 7.273 15.018 C 7.922 17.289 8.246 18.492 8.246 18.626 C 8.246 18.759 8.203 18.869 8.117 18.955 L 7.201 19.871 C 7.115 19.957 7.006 20 6.872 20 C 6.7 20 6.566 19.924 6.471 19.771 L 4.252 15.762 L 0.243 13.543 C 0.081 13.457 0 13.324 0 13.142 C 0 13.009 0.043 12.899 0.129 12.813 L 1.045 11.883 C 1.131 11.797 1.241 11.754 1.374 11.754 C 1.508 11.754 2.711 12.078 4.982 12.727 L 8.49 9.22 L 0.258 5.297 C 0.086 5.221 0 5.082 0 4.882 C 0 4.748 0.043 4.639 0.129 4.553 L 1.045 3.636 C 1.131 3.551 1.241 3.508 1.374 3.508 C 1.413 3.508 1.441 3.512 1.46 3.522 L 12.14 5.569 L 15.576 2.133 C 16.998 0.711 18.125 0 18.955 0 C 19.26 0 19.511 0.098 19.707 0.294 C 19.902 0.489 20 0.74 20 1.045 Z" layoutX="42.0" layoutY="46.0" rotate="90.0" scaleX="10.0" scaleY="10.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
@@ -347,7 +367,7 @@
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="100.0" layoutY="150.0" scaleX="4.0" scaleY="4.0">
+                                    <SVGPath content="M 20 0 C 8.956 0 0 9.154 0 20.448 C 0 31.917 8.75 39.756 20 50 C 31.25 39.756 40 31.917 40 20.448 C 40 9.154 31.044 0 20 0 Z M 20 37.5 C 11.162 37.5 4 30.038 4 20.833 C 4 11.629 11.162 4.167 20 4.167 C 28.838 4.167 36 11.629 36 20.833 C 36 30.038 28.838 37.5 20 37.5 Z M 12.78 22.496 L 18.442 19.575 L 12.638 14.419 L 14.434 13.494 L 23.828 16.798 L 28.316 14.483 C 29.5 13.865 31.454 14.031 31.898 14.965 C 31.968 15.113 32 15.281 32 15.463 C 31.996 16.417 31.08 17.708 30.094 18.223 L 25.606 20.538 L 22.434 30.325 L 20.638 31.25 L 20.22 23.317 L 14.556 26.235 L 13.388 29.169 L 12.132 29.815 L 11.694 25.385 L 8.576 22.335 L 9.832 21.688 L 12.78 22.496 Z" layoutX="93.0" layoutY="147.0" scaleX="2.0" scaleY="2.0">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -361,7 +381,7 @@
                                           </LinearGradient>
                                        </fill>
                                     </SVGPath>
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="500.0" layoutY="160.0" rotate="-180.0" scaleX="4.0" scaleY="4.0">
+                                    <SVGPath cache="true" content="M 20 0 C 8.956 0 0 9.154 0 20.448 C 0 31.917 8.75 39.756 20 50 C 31.25 39.756 40 31.917 40 20.448 C 40 9.154 31.044 0 20 0 Z M 20 37.5 C 11.162 37.5 4 30.038 4 20.833 C 4 11.629 11.162 4.167 20 4.167 C 28.838 4.167 36 11.629 36 20.833 C 36 30.038 28.838 37.5 20 37.5 Z M 12.78 22.496 L 18.442 19.575 L 12.638 14.419 L 14.434 13.494 L 23.828 16.798 L 28.316 14.483 C 29.5 13.865 31.454 14.031 31.898 14.965 C 31.968 15.113 32 15.281 32 15.463 C 31.996 16.417 31.08 17.708 30.094 18.223 L 25.606 20.538 L 22.434 30.325 L 20.638 31.25 L 20.22 23.317 L 14.556 26.235 L 13.388 29.169 L 12.132 29.815 L 11.694 25.385 L 8.576 22.335 L 9.832 21.688 L 12.78 22.496 Z" layoutX="493.0" layoutY="147.0" rotate="180.0" scaleX="2.0" scaleY="2.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -371,7 +391,7 @@
                                           </LinearGradient>
                                        </fill>
                                        <rotationAxis>
-                                          <Point3D y="-180.0" z="1.0" />
+                                          <Point3D y="-1.0" />
                                        </rotationAxis>
                                     </SVGPath>
                                  </children>
@@ -382,21 +402,21 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
                                  <children>
-                                    <SVGPath content="M 1491 375 C 1491 375 1413 375 1412.5 375 C 1413 377 1412 328 1412 328 C 1412 328 1330 325 1330 326 C 1330 326 1328 45 1328 48 C 1328 48 1302 49 1299 48 C 1296 47 1245 289 1245 290 C 1245 289 1185 376 1184 377 C 1183 377 1097 377 1096 379 C 1096 380 1000 471 1000 472 C 1000 473 268 479 89 479 C 79 479 76 465 67 465 C 36 465 19 465 19 465 C 19 465 60 546 84 571 C 108 595 210 661 210 661 L 1447 661 L 1474 599 C 1474 599 1511 537 1511 537 C 1511 535 1514 429 1513 429 C 1513 428 1491 374 1491 374 Z" layoutX="-603.0" layoutY="-103.0" rotate="180.0" scaleX="0.2" scaleY="0.2">
+                                    <SVGPath content="M 0.743 10.668 C 0.743 10.668 3.353 10.668 3.37 10.668 C 3.353 10.734 3.387 9.135 3.387 9.135 C 3.387 9.135 6.13 9.037 6.13 9.07 C 6.13 9.07 6.197 -0.098 6.197 0 C 6.197 0 7.067 0.033 7.168 0 C 7.268 -0.033 8.975 7.863 8.975 7.895 C 8.975 7.863 10.983 10.701 11.016 10.734 C 11.049 10.734 13.927 10.734 13.961 10.799 C 13.961 10.832 17.173 13.8 17.173 13.833 C 17.173 13.866 41.668 14.061 47.658 14.061 C 47.992 14.061 48.093 13.605 48.394 13.605 C 49.431 13.605 50 13.605 50 13.605 C 50 13.605 48.628 16.247 47.825 17.063 C 47.022 17.846 43.609 19.999 43.609 19.999 L 2.215 19.999 L 1.312 17.976 C 1.312 17.976 0.074 15.954 0.074 15.954 C 0.074 15.888 -0.027 12.43 0.007 12.43 C 0.007 12.398 0.743 10.636 0.743 10.636 L 0.743 10.668 Z" layoutX="469.0" layoutY="260.0" rotate="180.0" scaleX="4.0" scaleY="4.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
                                                 <Stop color="#1800ff" />
-                                                <Stop color="#b535b3" offset="0.011494252873563218" />
-                                                <Stop color="#578a0a" offset="1.0" />
+                                                <Stop color="#a14ca0" offset="0.011494252873563218" />
+                                                <Stop color="#9a0000" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                        <rotationAxis>
-                                          <Point3D y="-180.0" z="1.0" />
+                                          <Point3D y="1.0" />
                                        </rotationAxis>
                                     </SVGPath>
-                                    <SVGPath content="M 1491 375 C 1491 375 1413 375 1412.5 375 C 1413 377 1412 328 1412 328 C 1412 328 1330 325 1330 326 C 1330 326 1328 45 1328 48 C 1328 48 1302 49 1299 48 C 1296 47 1245 289 1245 290 C 1245 289 1185 376 1184 377 C 1183 377 1097 377 1096 379 C 1096 380 1000 471 1000 472 C 1000 473 268 479 89 479 C 79 479 76 465 67 465 C 36 465 19 465 19 465 C 19 465 60 546 84 571 C 108 595 210 661 210 661 L 1447 661 L 1474 599 C 1474 599 1511 537 1511 537 C 1511 535 1514 429 1513 429 C 1513 428 1491 374 1491 374 Z" layoutX="-323.0" layoutY="-103.0" scaleX="0.2" scaleY="0.2">
+                                    <SVGPath content="M 0.743 10.668 C 0.743 10.668 3.353 10.668 3.37 10.668 C 3.353 10.734 3.387 9.135 3.387 9.135 C 3.387 9.135 6.13 9.037 6.13 9.07 C 6.13 9.07 6.197 -0.098 6.197 0 C 6.197 0 7.067 0.033 7.168 0 C 7.268 -0.033 8.975 7.863 8.975 7.895 C 8.975 7.863 10.983 10.701 11.016 10.734 C 11.049 10.734 13.927 10.734 13.961 10.799 C 13.961 10.832 17.173 13.8 17.173 13.833 C 17.173 13.866 41.668 14.061 47.658 14.061 C 47.992 14.061 48.093 13.605 48.394 13.605 C 49.431 13.605 50 13.605 50 13.605 C 50 13.605 48.628 16.247 47.825 17.063 C 47.022 17.846 43.609 19.999 43.609 19.999 L 2.215 19.999 L 1.312 17.976 C 1.312 17.976 0.074 15.954 0.074 15.954 C 0.074 15.888 -0.027 12.43 0.007 12.43 C 0.007 12.398 0.743 10.636 0.743 10.636 L 0.743 10.668 Z" layoutX="189.0" layoutY="220.0" scaleX="8.0" scaleY="8.0">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -506,27 +526,24 @@
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <SVGPath content="M 157,184 L 173,168 C 182,159 197,162 197,162 L 242,168 L 265,146 C 277,134 288,152 283,158 L 271,172 L 320,181 L 336,162 C 354,141 367,159 359,171 L 348,184 L 421,194 C 484,133 509,108 526,123 C 543,138 513,168 456,227 L 467,302 L 482,289 C 491,282 507,294 490,309 L 469,329 L 478,378 L 491,368 C 503,359 517,371 501,388 L 480,409 C 480,409 487,452 487,452 C 492,473 480,480 480,480 L 466,493 L 411,339 C 407,326 396,311 376,313 C 366,314 341,331 337,335 L 279,392 C 277,393 288,465 288,465 C 288,468 269,492 269,492 L 232,426 L 213,434 L 224,417 L 157,379 L 182,361 C 194,364 257,371 258,370 C 258,370 309,319 312,316 C 329,298 335,292 338,283 C 340,274 336,261 309,245 C 272,222 157,184 157,184 z" layoutX="-275.0" layoutY="-238.0" scaleX="0.2" scaleY="0.2">
-                                       <fill>
-                                          <LinearGradient endX="0.6523809523809524" endY="0.35238095238095235">
-                                             <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2e6544" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </SVGPath>
-                                    <SVGPath content="M 157,184 L 173,168 C 182,159 197,162 197,162 L 242,168 L 265,146 C 277,134 288,152 283,158 L 271,172 L 320,181 L 336,162 C 354,141 367,159 359,171 L 348,184 L 421,194 C 484,133 509,108 526,123 C 543,138 513,168 456,227 L 467,302 L 482,289 C 491,282 507,294 490,309 L 469,329 L 478,378 L 491,368 C 503,359 517,371 501,388 L 480,409 C 480,409 487,452 487,452 C 492,473 480,480 480,480 L 466,493 L 411,339 C 407,326 396,311 376,313 C 366,314 341,331 337,335 L 279,392 C 277,393 288,465 288,465 C 288,468 269,492 269,492 L 232,426 L 213,434 L 224,417 L 157,379 L 182,361 C 194,364 257,371 258,370 C 258,370 309,319 312,316 C 329,298 335,292 338,283 C 340,274 336,261 309,245 C 272,222 157,184 157,184 z" layoutX="172.0" layoutY="-116.0" rotate="-180.0" scaleX="0.3" scaleY="0.3">
-                                       <rotationAxis>
-                                          <Point3D y="-180.0" z="1.0" />
-                                       </rotationAxis>
+                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="491.0" layoutY="151.0" rotate="270.0" scaleX="6.0" scaleY="6.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
                                                 <Stop color="#1800ff" />
                                                 <Stop color="#d01b1b" offset="0.011494252873563218" />
                                                 <Stop color="#1aff57" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </SVGPath>
+                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="51.0" layoutY="157.0" scaleX="4.0" scaleY="4.0">
+                                       <fill>
+                                          <LinearGradient endX="0.6523809523809524" endY="0.35238095238095235">
+                                             <stops>
+                                                <Stop color="#1800ff" />
+                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
+                                                <Stop color="#2e6544" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
@@ -553,7 +570,7 @@
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <Button fx:id="addEntityButton" layoutX="201.0" layoutY="252.0" mnemonicParsing="false" onAction="#addToEntityListView" text="Dodaj Entity" textAlignment="CENTER">
+                                    <Button fx:id="buttonAddCivilianPlane" layoutX="11.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddCivilianPlaneOnClick" text="Dodaj CP" textAlignment="CENTER">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -657,6 +674,58 @@
                                           <Font name="Comic Sans MS Bold Italic" size="14.0" />
                                        </font>
                                     </TextField>
+                                    <Button fx:id="buttonAddCivilianShip" layoutX="203.0" layoutY="130.0" mnemonicParsing="false" onAction="#buttonAddCivilianShipOnClick" text="Dodaj CS" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#d31010" />
+                                                <Stop color="#820e86" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="buttonAddMilitaryShip" layoutX="203.0" layoutY="180.0" mnemonicParsing="false" onAction="#buttonAddMilitaryShipOnClick" text="Dodaj MS" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#d31010" />
+                                                <Stop color="#820e86" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="buttonAddMilitaryPlane" layoutX="191.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddMilitaryPlaneOnClick" text="Dodaj MP" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#d31010" />
+                                                <Stop color="#820e86" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="buttonAddAirport" layoutX="371.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddAirportOnClick" text="Dodaj A" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#d31010" />
+                                                <Stop color="#820e86" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
