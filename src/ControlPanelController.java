@@ -1,12 +1,12 @@
 import classes.TYPE;
 import classes.Entity;
-import javafx.animation.Interpolator;
-import javafx.animation.PathTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.animation.PathTransition.OrientationType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -74,7 +74,7 @@ public class ControlPanelController implements Initializable {
     
     //region [Testing]
     private void addToEntityListView(TYPE type) {
-        Entity entity = new Entity(type, 0, 0);
+        Entity entity = new Entity(type);
         entityListView.getItems().add(entity);
         this.mapController.getMap().getChildren().add(entity.getSprite());
     }
@@ -115,33 +115,41 @@ public class ControlPanelController implements Initializable {
     }
     
     @FXML private Button buttonMoveToSpecifiedTest;
-
+    
     @FXML private void moveTo(double x, double y) {
+        // TODO Tidy this up; place inside the Entity directly as motor control
         var entity = entityListView.getSelectionModel().getSelectedItem();
-        
         Path path = new Path();
-        // TODO Bezier Curve calculation
-//        if (Set.of(TYPE.CIVILIANPLANE, TYPE.MILITARYPLANE).contains(entity.getType())) {
-//            var p1 = new Point2D(entity.getSprite().getTranslateX(), entity.getSprite().getTranslateY());
-//            var p2 = new Point2D(x, y);
-//            double mag = p1.distance(p2);
-//
-//            MoveTo start = new MoveTo(p1.getX(), p1.getY());
-//            CubicCurveTo end = new CubicCurveTo(
-//                    start.getX() + mag / 6, start.getY() - mag / 4,
-//                    x - mag / 6, y - mag / 4,
-//                    x, y);
-//            path.getElements().addAll(start, end);
-//        } else
-        {
-            MoveTo start = new MoveTo(entity.getSprite().getTranslateX(), entity.getSprite().getTranslateY());
-            LineTo end = new LineTo(x, y);
-            path.getElements().addAll(start, end);
-        }
+
+        var coolerTransition = new PathTransition();
+        coolerTransition.setDuration(Duration.seconds(1));
+        coolerTransition.setPath(path);
+        coolerTransition.setNode(entity.getSprite());
+        coolerTransition.setInterpolator(Interpolator.EASE_BOTH);
+        coolerTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+
+        MoveTo start = new MoveTo(
+                entity.getSprite().getTranslateX() + entity.getType().getOrigin().getX(),
+                entity.getSprite().getTranslateY() + entity.getType().getOrigin().getY());
+        path.getElements().add(start);
         
-        var coolerTransition = new PathTransition(Duration.seconds(0.2), path, entity.getSprite());
-        coolerTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        coolerTransition.setInterpolator(Interpolator.LINEAR);
+        if (Set.of(TYPE.CIVILIANPLANE, TYPE.MILITARYPLANE).contains(entity.getType())) {
+            var p1 = new Point2D(entity.getSprite().getTranslateX(), entity.getSprite().getTranslateY());
+            var p2 = new Point2D(x, y);
+            var radius = Math.abs(p2.getX() - p1.getX());
+            
+            ArcTo end = new ArcTo();
+            end.setX(p2.getX());
+            end.setY(p2.getY());
+            end.setRadiusX(radius);
+            end.setRadiusY(radius / 3);
+            
+            path.getElements().add(end);
+        } else { path.getElements().add(new LineTo(x, y)); }
+    
+
+        this.mapController.getMap().getChildren().add(path);
+        coolerTransition.setOnFinished(event -> this.mapController.getMap().getChildren().remove(path));
         coolerTransition.play();
     }
     

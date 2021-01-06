@@ -33,6 +33,6 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane fx:id="map" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="map" blendMode="SRC_ATOP" maxHeight="600.0" maxWidth="800.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

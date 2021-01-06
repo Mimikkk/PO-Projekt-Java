@@ -45,10 +45,7 @@ public class MapController implements Initializable {
     }
     
     @FXML public Optional<Circle> getRandomCircle() {
-        this.map.getChildren().forEach((x) -> {
-            System.out.println(x.getUserData());
-        });
-        
+        // TODO proper port storage
         var circles = this.map.getChildren()
                 .filtered((x) -> x.getUserData() != null && x.getUserData().equals("Circle"));
         if (circles.isEmpty()) {return Optional.empty();}

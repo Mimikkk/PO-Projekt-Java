@@ -1,9 +1,12 @@
 package classes;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
+
+import java.util.Set;
 
 public class Entity {
     private final SVGPath sprite;
@@ -13,7 +16,6 @@ public class Entity {
     private void resize(SVGPath svg, double width, double height) {
         double originalWidth = svg.prefWidth(-1);
         double originalHeight = svg.prefHeight(originalWidth);
-        
         double scaleX = width / originalWidth;
         double scaleY = height / originalHeight;
         
@@ -21,11 +23,14 @@ public class Entity {
         svg.setScaleY(scaleY);
     }
     
-    public Entity(TYPE type, Point2D point) { this(type, point.getX(), point.getY()); }
-    public Entity(final TYPE type, final double x, final double y) {
+    public Entity(final TYPE type) {
         var svg = new SVGPath();
         svg.setContent(type.getSvg());
         sprite = svg;
+        
+        if (Set.of(TYPE.MILITARYSHIP, TYPE.CIVILIANSHIP).contains(type)) {
+            svg.setRotationAxis(new Point3D(0, 1, 0));
+        }
         
         this.id = 1; // TODO ID generator
         this.type = type;
