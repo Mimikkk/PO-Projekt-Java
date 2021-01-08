@@ -1,58 +1,30 @@
-import classes.TYPE;
-import classes.Entity;
+import classes.*;
 import javafx.animation.*;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class ControlPanelController implements Initializable {
-    MapController mapController;
+    private MapController mapController;
+    private final Random random = new Random();
     
-    @FXML private ListView<Entity> airportListView;
-    @FXML private ListView<String> planeCivilianListView;
-    @FXML private ListView<String> planeMilitaryListView;
-    @FXML private ListView<String> shipCivilianListView;
-    @FXML private ListView<String> shipMilitaryListView;
-    
-    /// Testing
-    @FXML private ListView<Entity> entityListView;
-    
-    
-    private void loadData(ListView<String> listView) {
-        Random random = new Random();
-        String[] strings = random.ints(random.nextInt(100)).parallel()
-                .mapToObj(x -> random.ints(97, 123)
-                        .limit(random.nextInt(100))
-                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                        .toString()).toArray(String[]::new);
-        
-        listView.getItems().clear();
-        listView.getItems().addAll(strings);
-    }
-    
-    @FXML private Button addEntityButton;
-    @FXML private TextField nameEntity;
-    @FXML private TextField xEntity;
-    @FXML private TextField yEntity;
-    @FXML private TextField rotationEntity;
-    @FXML private TextField idEntity;
+    @FXML private ListView<Airport> airportListView;
+    @FXML private ListView<CivilianPlane> planeCivilianListView;
+    @FXML private ListView<MilitaryPlane> planeMilitaryListView;
+    @FXML private ListView<CivilianShip> shipCivilianListView;
+    @FXML private ListView<MilitaryShip> shipMilitaryListView;
     
     @FXML private TextField nameEntityDisplay;
     @FXML private TextField xEntityDisplay;
@@ -60,7 +32,7 @@ public class ControlPanelController implements Initializable {
     @FXML private TextField rotationEntityDisplay;
     @FXML private TextField idEntityDisplay;
     
-    @FXML private void entityListViewOnClicked(MouseEvent event) {
+    @FXML private void A_ListView_OnClicked(MouseEvent event) {
         var a = entityListView.getSelectionModel().getSelectedItems();
         if (a.isEmpty()) return;
         var entity = entityListView.getSelectionModel().getSelectedItems().get(0);
@@ -71,28 +43,113 @@ public class ControlPanelController implements Initializable {
         rotationEntityDisplay.setText(String.valueOf(entity.getSprite().getRotate()));
         idEntityDisplay.setText(String.valueOf(entity.getID()));
     }
+    //region [Main Pages]
+    
+    //region [Data]
+    //region [Civilian Planes]
+    
+    //endregion
+    //region [Military Planes]
+    //endregion
+    //region [Civilian Ships]
+    //endregion
+    //region [Military Ships]
+    //endregion
+    //region [Airports]
+    //endregion
+    //endregion
+    
+    //region [Constructor]
+    
+    //region [Civilian Planes]
+    // TODO add ability to choose the starting airport at will or at random
+    // TODO add ability to choose the owning business at will or at random
+    // TODO add the ability to choose the path at will or at random
+    // TODO First choose the starting airport then the pathing
+    
+    @FXML private TextField textField_CivilianPlane_x;
+    @FXML private TextField textField_CivilianPlane_y;
+    
+    @FXML private TextField textField_CivilianPlane_startingAirport; // FIXME not a TextField but a DropdownMenu
+    @FXML private TextField textField_CivilianPlane_selectedAirport; // FIXME not a TextField but a DropdownMenu
+    @FXML private TextField textField_CivilianPlane_selectedBusiness; // FIXME not a TextField but a DropdownMenu
+    
+    @FXML private Button button_CivilianPlane_Add;
+    @FXML private Button button_CivilianPlane_SelectRandomStart;
+    @FXML private Button button_CivilianPlane_SelectSpecifiedStart;
+    @FXML private Button button_CivilianPlane_SelectRandomBusiness;
+    @FXML private Button button_CivilianPlane_SelectSpecifiedBusiness;
+    
+    @FXML private Button button_CivilianPlane_CreateRandomPath;
+    @FXML private Button button_CivilianPlane_SelectSpecifiedPath;
+    @FXML private Button button_CivilianPlane_SelectRandomPath;
+    @FXML private Button button_CivilianPlane_AddToSelectedPath;
+    
+    @FXML private Button button_CivilianPlane_RemoveFromPath;
+    @FXML private void button_CivilianPlane_Add_OnClick(ActionEvent event) {
+        addEntityToMap(planeCivilianListView, new CivilianPlane());
+    }
+    //endregion
+    //region [Military Planes]
+    // TODO Like Civilian Plane
+    @FXML private Button buttonAddMilitaryPlane;
+    @FXML private void button_AddMilitaryPlane_OnClick(ActionEvent event) {
+        addEntityToMap(planeMilitaryListView, new MilitaryPlane());
+    }
+    //endregion
+    //region [Civilian Ships]
+    // TODO Like Civilian Plane
+    @FXML private Button buttonAddCivilianShip;
+    @FXML private void button_AddCivilianShip_OnClick(ActionEvent event) {
+        addEntityToMap(shipCivilianListView, new CivilianShip());
+    }
+    //endregion
+    //region [Military Ships]
+    // TODO Like Civilian Plane
+    @FXML private Button buttonAddMilitaryShip;
+    @FXML private void button_AddMilitaryShip_OnClick(ActionEvent event) {
+        addEntityToMap(shipMilitaryListView, new MilitaryShip());
+    }
+    //endregion
+    //region [Airport]
+    // TODO Like Civilian Plane
+    @FXML private Button button_Airport_AddAtSpecified;
+    @FXML private Button button_Airport_AddAtRandom;
+    
+    @FXML TextField textField_Airport_x;
+    @FXML TextField textField_Airport_y;
+    @FXML TextField textField_Airport_size; // FIXME Dropdown not a TextField baka
+    
+    @FXML private void button_Airport_AddAtSpecified_OnClick(ActionEvent event) {
+        var entity = new Airport();
+        int x = (int) Math.max(0, Math.min(Double.parseDouble(textField_Airport_x.getText()),
+                this.mapController.getMap().getLayoutBounds().getWidth()
+                        - entity.getType().getOrigin().getX()));
+        int y = (int) Math.max(0, Math.min(Double.parseDouble(textField_Airport_y.getText()),
+                this.mapController.getMap().getLayoutBounds().getHeight()
+                        - entity.getType().getOrigin().getY()));
+        
+        addEntityToMap(airportListView, createEntityAtXY(entity, x, y));
+    }
+    @FXML private void button_Airport_AddAtRandom_OnClick(ActionEvent event) {
+        var entity = new Airport();
+        var x = entity.getType().getOrigin().getX() + random.nextInt(
+                (int) ((int) this.mapController.getMap().getLayoutBounds().getWidth()
+                        - 2 * entity.getType().getOrigin().getX()));
+        var y = entity.getType().getOrigin().getX() + random.nextInt(
+                (int) ((int) this.mapController.getMap().getLayoutBounds().getHeight()
+                        - 2 * entity.getType().getOrigin().getY()));
+        addEntityToMap(airportListView, createEntityAtXY(new Airport(), x, y));
+    }
+    //endregion
+    //endregion
+    //endregion
     
     //region [Testing]
-    private void addToEntityListView(TYPE type) {
-        Entity entity = new Entity(type);
-        entityListView.getItems().add(entity);
-        this.mapController.getMap().getChildren().add(entity.getSprite());
+    private <T extends Entity> void addEntityToMap(ListView<T> listView, T entity) {
+        listView.getItems().add(entity);
+        this.mapController.addToMap(entity);
     }
-    
-    @FXML private Button buttonAddCivilianPlane;
-    @FXML private void buttonAddCivilianPlaneOnClick(ActionEvent event) { addToEntityListView(TYPE.CIVILIANPLANE); }
-    
-    @FXML private Button buttonAddMilitaryPlane;
-    @FXML private void buttonAddMilitaryPlaneOnClick(ActionEvent event) { addToEntityListView(TYPE.MILITARYPLANE); }
-    
-    @FXML private Button buttonAddCivilianShip;
-    @FXML private void buttonAddCivilianShipOnClick(ActionEvent event) { addToEntityListView(TYPE.CIVILIANSHIP); }
-    
-    @FXML private Button buttonAddMilitaryShip;
-    @FXML private void buttonAddMilitaryShipOnClick(ActionEvent event) { addToEntityListView(TYPE.MILITARYSHIP); }
-    
-    @FXML private Button buttonAddAirport;
-    @FXML private void buttonAddAirportOnClick(ActionEvent event) { addToEntityListView(TYPE.AIRPORT); }
     
     @FXML private TextField xEntityDisplayTest;
     @FXML private TextField yEntityDisplayTest;
@@ -100,40 +157,38 @@ public class ControlPanelController implements Initializable {
     @FXML private Button buttonCreateAtSpecifiedCircle;
     @FXML private Button buttonCreateAtRandomTest;
     
-    private Circle createCircleAtXY(double x, double y) {
-        Circle circle = new Circle(10);
-        circle.setLayoutX(x);
-        circle.setLayoutY(y);
-        circle.setUserData("Circle");
-        return circle;
+    private <T extends Entity> T createEntityAtXY(T entity, double x, double y) {
+        entity.getSprite().setTranslateX(x);
+        entity.getSprite().setTranslateY(y);
+        entity.getSprite().setUserData(entity.getClass());
+        return entity;
     }
     
     @FXML private void buttonCreateAtSpecifiedCircleOnClick(ActionEvent event) {
         var x = Double.parseDouble(this.xEntityDisplayTest.getText());
         var y = Double.parseDouble(this.yEntityDisplayTest.getText());
-        this.mapController.getMap().getChildren().add(createCircleAtXY(x, y));
     }
     
     @FXML private Button buttonMoveToSpecifiedTest;
     
-    @FXML private void moveTo(double x, double y) {
+    @FXML private <T extends Entity> void moveTo(ListView<T> listView, double x, double y) {
         // TODO Tidy this up; place inside the Entity directly as motor control
-        var entity = entityListView.getSelectionModel().getSelectedItem();
+        var entity = (Entity) listView.getSelectionModel().getSelectedItem();
         Path path = new Path();
-
-        var coolerTransition = new PathTransition();
-        coolerTransition.setDuration(Duration.seconds(1));
-        coolerTransition.setPath(path);
-        coolerTransition.setNode(entity.getSprite());
-        coolerTransition.setInterpolator(Interpolator.EASE_BOTH);
-        coolerTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-
+        
+        var transition = new PathTransition();
+        transition.setDuration(Duration.seconds(1));
+        transition.setPath(path);
+        transition.setNode(entity.getSprite());
+        transition.setInterpolator(Interpolator.EASE_BOTH);
+        transition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+        
         MoveTo start = new MoveTo(
                 entity.getSprite().getTranslateX() + entity.getType().getOrigin().getX(),
                 entity.getSprite().getTranslateY() + entity.getType().getOrigin().getY());
         path.getElements().add(start);
         
-        if (Set.of(TYPE.CIVILIANPLANE, TYPE.MILITARYPLANE).contains(entity.getType())) {
+        if (Set.of(Entity.TYPE.CIVILIANPLANE, Entity.TYPE.MILITARYPLANE).contains(entity.getType())) {
             var p1 = new Point2D(entity.getSprite().getTranslateX(), entity.getSprite().getTranslateY());
             var p2 = new Point2D(x, y);
             var radius = Math.abs(p2.getX() - p1.getX());
@@ -146,24 +201,24 @@ public class ControlPanelController implements Initializable {
             
             path.getElements().add(end);
         } else { path.getElements().add(new LineTo(x, y)); }
-    
-
+        
+        
         this.mapController.getMap().getChildren().add(path);
-        coolerTransition.setOnFinished(event -> this.mapController.getMap().getChildren().remove(path));
-        coolerTransition.play();
+        transition.setOnFinished(event -> this.mapController.getMap().getChildren().remove(path));
+        transition.play();
     }
     
-    @FXML private void buttonCreateAtRandomCircleOnClick(ActionEvent event) {
+    @FXML private void button_CreateAtRandomAirport_OnClick(ActionEvent event) {
         var rand = new Random();
         var x = (double) rand.nextInt(
                 (int) mapController.getMap().getLayoutBounds().getWidth());
         var y = (double) rand.nextInt(
                 (int) mapController.getMap().getLayoutBounds().getHeight());
-        
+        this.mapController.addToMap();
         this.mapController.getMap().getChildren().add(createCircleAtXY(x, y));
     }
     
-    @FXML private void buttonMoveToSpecifiedOnClick(ActionEvent event) {
+    @FXML private void button_MoveToSpecified_OnClick(ActionEvent event) {
         var x = Double.parseDouble(xEntityDisplayTest.getText());
         var y = Double.parseDouble(yEntityDisplayTest.getText());
         moveTo(x, y);
@@ -178,7 +233,7 @@ public class ControlPanelController implements Initializable {
         moveTo(x, y);
     }
     
-    @FXML private void buttonMoveToSpecifiedCircleOnClick(ActionEvent event) {
+    @FXML private void buttonMoveToSpecifiedAirportOnClick(ActionEvent event) {
         // TODO Proper Circle Selection
         var circle = mapController.getRandomCircle();
         if (circle.isEmpty()) {return;}
@@ -188,7 +243,7 @@ public class ControlPanelController implements Initializable {
         moveTo(x, y);
     }
     
-    @FXML private void buttonMoveToRandomCircleOnClick(ActionEvent event) {
+    @FXML private void buttonMoveToRandomAirportOnClick(ActionEvent event) {
         var circle = mapController.getRandomCircle();
         if (circle.isEmpty()) {return;}
         var x = circle.get().getLayoutX();
@@ -202,9 +257,8 @@ public class ControlPanelController implements Initializable {
     @FXML private Button buttonMoveToCircleSpecifiedTest;
     //endregion
     
-    
     public void init(MapController mapController) { this.mapController = mapController; }
+    
     @Override public void initialize(URL location, ResourceBundle resources) {
-        
     }
 }

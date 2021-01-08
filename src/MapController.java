@@ -1,3 +1,4 @@
+import classes.Entity;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,10 +14,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.Optional;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class MapController implements Initializable {
@@ -44,14 +44,6 @@ public class MapController implements Initializable {
         }
     }
     
-    @FXML public Optional<Circle> getRandomCircle() {
-        // TODO proper port storage
-        var circles = this.map.getChildren()
-                .filtered((x) -> x.getUserData() != null && x.getUserData().equals("Circle"));
-        if (circles.isEmpty()) {return Optional.empty();}
-        return Optional.ofNullable((Circle) circles.get(new Random().nextInt(circles.size())));
-    }
-    
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("controlpanel.fxml"));
@@ -68,5 +60,11 @@ public class MapController implements Initializable {
             
             controlPanelStage.show();
         } catch (IOException e) { e.printStackTrace(); }
+    }
+    
+    public void addToMap(Entity entity) {
+    }
+
+    public void removeFromMap(Entity entity) {
     }
 }
