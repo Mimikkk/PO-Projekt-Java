@@ -63,8 +63,10 @@ public class MapController implements Initializable {
     }
     
     public void addToMap(Entity entity) {
+        this.map.getChildren().add(entity.getSprite());
     }
 
     public void removeFromMap(Entity entity) {
+        this.map.getChildren().remove(entity.getSprite());
     }
 }
