@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -26,16 +27,14 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-            <Menu mnemonicParsing="false" text="Control Panel">
+            <Menu mnemonicParsing="false" text="Panel Sterowania">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Load" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#menu_closeTab_OnAction" text="Zamknij" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Pomoc">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="O projekcie" />
             </items>
           </Menu>
         </menus>
@@ -44,7 +43,7 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-            <Tab text="Dane">
+            <Tab text="Kontroler">
                <content>
                   <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -95,10 +94,119 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="airportListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
+                                          <ListView fx:id="airportListView" layoutX="19.0" layoutY="14.0" onMouseClicked="#button_AirportListView_OnClicked" prefHeight="290.0" prefWidth="200.0" />
+                                          <Button fx:id="button_Airport_Remove" layoutX="97.0" layoutY="277.0" mnemonicParsing="false" onAction="#button_Airport_Remove_OnClicked" text="Usuń">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="12.0" />
+                                             </font>
+                                             <textFill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#297fff" offset="0.007662835249042145" />
+                                                      <Stop color="#ad22d0" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </textFill>
+                                          </Button>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <Text layoutX="77.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#ff00f9" offset="0.007662835249042145" />
+                                                      <Stop color="#17d362" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <Text layoutX="21.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozycja:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#003282" offset="0.007662835249042145" />
+                                                      <Stop color="#d72954" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <ListView fx:id="listView_Airport_cargoDisplay" layoutX="142.0" layoutY="173.0" prefHeight="130.0" prefWidth="202.0" />
+                                          <Text layoutX="9.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ładowność">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient cycleMethod="REFLECT" endX="0.7142857142857143" endY="0.5761904761904761">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#7d0049" offset="0.007662835249042145" />
+                                                      <Stop color="#e81414" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="textField_Airport_idDisplay" editable="false" layoutX="143.0" layoutY="12.0" prefHeight="37.0" prefWidth="199.0" promptText="Wybierz Samolot...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_Airport_xDisplay" editable="false" layoutX="143.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="x...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_Airport_capacityCurrentDisplay" alignment="CENTER" editable="false" layoutX="22.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="C">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_Airport_capacityMaxDisplay" alignment="CENTER" editable="false" layoutX="75.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="M">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_Airport_yDisplay" editable="false" layoutX="252.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="y...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="90.0" layoutX="25.0" layoutY="110.0" stroke="#bcbcbc" strokeType="INSIDE" width="90.0" />
+                                          <AnchorPane fx:id="anchorPane_Airport_IconDisplay" layoutX="25.0" layoutY="110.0" prefHeight="90.0" prefWidth="90.0">
+                                             <children>
+                                                <SVGPath />
+                                             </children>
+                                          </AnchorPane>
+                                          <Text layoutX="128.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rozmiar:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#003282" offset="0.007662835249042145" />
+                                                      <Stop color="#0de8c3" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="textField_Airport_sizeDisplay" editable="false" layoutX="231.0" layoutY="119.0" prefHeight="37.0" prefWidth="112.0" promptText="Rzmr...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                       </children></AnchorPane>
                                  </items>
                               </SplitPane>
                            </content>
@@ -113,120 +221,6 @@
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                 </items>
-                              </SplitPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Entity">
-                           <content>
-                              <SplitPane dividerPositions="0.4" focusTraversable="false" prefHeight="160.0" prefWidth="200.0">
-                                 <items>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <ListView fx:id="entityListView" layoutX="19.0" layoutY="14.0" onMouseClicked="#entityListViewOnClicked" prefHeight="290.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
-                                       <children>
-                                          <Text layoutX="139.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                             </font>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                                   <stops>
-                                                      <Stop color="#1800ff" />
-                                                      <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                      <Stop color="#2ded49" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Text>
-                                          <Text layoutX="133.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozycja">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                             </font>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                                   <stops>
-                                                      <Stop color="#00ff88" />
-                                                      <Stop color="#5cb9f7" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Text>
-                                          <TextField fx:id="nameEntityDisplay" disable="true" editable="false" layoutX="91.0" layoutY="47.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Separator layoutX="89.0" layoutY="84.0" prefHeight="5.0" prefWidth="176.0" />
-                                          <TextField disable="true" editable="false" layoutX="91.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0" fx:id="xEntityDisplay">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <TextField fx:id="yEntityDisplay" disable="true" editable="false" layoutX="185.0" layoutY="124.0" prefHeight="31.0" prefWidth="80.0">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <TextField fx:id="idEntityDisplay" disable="true" editable="false" layoutX="94.0" layoutY="269.0" prefHeight="29.0" prefWidth="171.0" promptText="Wybierz Entity...">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Text layoutX="164.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                             </font>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                                   <stops>
-                                                      <Stop color="#00ff88" />
-                                                      <Stop color="#5cb9f7" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Text>
-                                          <Text layoutX="135.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotacja">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                             </font>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                                   <stops>
-                                                      <Stop color="#1800ff" />
-                                                      <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                      <Stop color="#2ded49" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Text>
-                                          <TextField fx:id="rotationEntityDisplay" disable="true" editable="false" layoutX="140.0" layoutY="189.0" prefHeight="31.0" prefWidth="80.0">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Separator layoutX="54.0" layoutY="232.0" prefHeight="5.0" prefWidth="250.0" />
-                                          <Button fx:id="buttonMoveToSpecifiedTest" layoutX="9.0" layoutY="50.0" mnemonicParsing="false" onAction="#buttonMoveToSpecifiedOnClick" text="Move To" />
-                                          <TextField layoutY="74.0" prefHeight="31.0" prefWidth="80.0" promptText="x" text="0" fx:id="xEntityDisplayTest">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <TextField fx:id="yEntityDisplayTest" layoutY="107.0" prefHeight="31.0" prefWidth="80.0" promptText="y" text="0">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button fx:id="buttonMoveToCircleRandomTest" layoutX="2.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonMoveToRandomCircleOnClick" text="Move to Random Circle" />
-                                          <Button fx:id="buttonCreateAtRandomTest" layoutX="-1.0" layoutY="163.0" mnemonicParsing="false" onAction="#buttonCreateAtRandomCircleOnClick" text="Create Circle At Random" />
-                                          <Button fx:id="buttonMoveToRandomTest" layoutX="1.0" layoutY="205.0" mnemonicParsing="false" onAction="#buttonMoveToRandomOnClick" text="Move To Random Point" />
-                                          <Button fx:id="buttonCreateAtSpecifiedCircle" layoutX="-9.0" layoutY="138.0" mnemonicParsing="false" onAction="#buttonCreateAtSpecifiedCircleOnClick" text="Create Circle At" />
-                                          <Button fx:id="buttonMoveToCircleSpecifiedTest" layoutX="2.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonMoveToSpecifiedOnClick" text="Move to Selected Circle" />
-                                       </children>
-                                    </AnchorPane>
                                  </items>
                               </SplitPane>
                            </content>
@@ -286,7 +280,7 @@
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <Button layoutX="200.0" layoutY="252.0" mnemonicParsing="false" text="Dodaj Lotnisko" textAlignment="CENTER">
+                                    <Button fx:id="button_Airport_Add" layoutX="200.0" layoutY="252.0" mnemonicParsing="false" onAction="#button_Airport_Add_OnClick" text="Dodaj Lotnisko" textAlignment="CENTER">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -299,7 +293,7 @@
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                     </Button>
-                                    <Text layoutX="244.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pojemność">
+                                    <Text layoutX="150.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wielkość">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
@@ -312,16 +306,16 @@
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <TextField layoutX="97.0" layoutY="30.0" prefHeight="51.0" prefWidth="407.0" promptText="Wpisz nazwę...">
+                                    <TextField fx:id="textField_Airport_name" layoutX="97.0" layoutY="30.0" prefHeight="51.0" prefWidth="334.0" promptText="Wpisz nazwę...">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                     </TextField>
                                     <Separator layoutX="52.0" layoutY="93.0" prefHeight="5.0" prefWidth="500.0" />
                                     <Separator layoutX="152.0" layoutY="234.0" prefHeight="5.0" prefWidth="300.0" />
-                                    <VBox alignment="CENTER" layoutX="137.0" layoutY="132.0" prefHeight="96.0" prefWidth="314.0">
+                                    <VBox alignment="CENTER" layoutX="136.0" layoutY="137.0" prefHeight="96.0" prefWidth="129.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" selected="true" text="Małe">
+                                          <RadioButton fx:id="radioButton_Airport_smallSize" mnemonicParsing="false" text="Małe">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="12.0" />
                                              </font>
@@ -334,10 +328,10 @@
                                                 </LinearGradient>
                                              </textFill>
                                              <toggleGroup>
-                                                <ToggleGroup fx:id="AirportSize" />
+                                                <ToggleGroup fx:id="toggleGroup_Airport_size" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="Średnie" toggleGroup="$AirportSize">
+                                          <RadioButton fx:id="radioButton_Airport_mediumSize" mnemonicParsing="false" selected="true" text="Średnie" toggleGroup="$toggleGroup_Airport_size">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
@@ -351,7 +345,7 @@
                                                 </LinearGradient>
                                              </textFill>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="Wielkie" toggleGroup="$AirportSize">
+                                          <RadioButton fx:id="radioButton_Airport_bigSize" mnemonicParsing="false" text="Wielkie" toggleGroup="$toggleGroup_Airport_size">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                              </font>
@@ -367,7 +361,7 @@
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <SVGPath content="M 20 0 C 8.956 0 0 9.154 0 20.448 C 0 31.917 8.75 39.756 20 50 C 31.25 39.756 40 31.917 40 20.448 C 40 9.154 31.044 0 20 0 Z M 20 37.5 C 11.162 37.5 4 30.038 4 20.833 C 4 11.629 11.162 4.167 20 4.167 C 28.838 4.167 36 11.629 36 20.833 C 36 30.038 28.838 37.5 20 37.5 Z M 12.78 22.496 L 18.442 19.575 L 12.638 14.419 L 14.434 13.494 L 23.828 16.798 L 28.316 14.483 C 29.5 13.865 31.454 14.031 31.898 14.965 C 31.968 15.113 32 15.281 32 15.463 C 31.996 16.417 31.08 17.708 30.094 18.223 L 25.606 20.538 L 22.434 30.325 L 20.638 31.25 L 20.22 23.317 L 14.556 26.235 L 13.388 29.169 L 12.132 29.815 L 11.694 25.385 L 8.576 22.335 L 9.832 21.688 L 12.78 22.496 Z" layoutX="93.0" layoutY="147.0" scaleX="2.0" scaleY="2.0">
+                                    <SVGPath content="M 20 0 C 8.956 0 0 9.154 0 20.448 C 0 31.917 8.75 39.756 20 50 C 31.25 39.756 40 31.917 40 20.448 C 40 9.154 31.044 0 20 0 Z M 20 37.5 C 11.162 37.5 4 30.038 4 20.833 C 4 11.629 11.162 4.167 20 4.167 C 28.838 4.167 36 11.629 36 20.833 C 36 30.038 28.838 37.5 20 37.5 Z M 12.78 22.496 L 18.442 19.575 L 12.638 14.419 L 14.434 13.494 L 23.828 16.798 L 28.316 14.483 C 29.5 13.865 31.454 14.031 31.898 14.965 C 31.968 15.113 32 15.281 32 15.463 C 31.996 16.417 31.08 17.708 30.094 18.223 L 25.606 20.538 L 22.434 30.325 L 20.638 31.25 L 20.22 23.317 L 14.556 26.235 L 13.388 29.169 L 12.132 29.815 L 11.694 25.385 L 8.576 22.335 L 9.832 21.688 L 12.78 22.496 Z" layoutX="50.0" layoutY="147.0" scaleX="2.0" scaleY="2.0">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -394,14 +388,69 @@
                                           <Point3D y="-1.0" />
                                        </rotationAxis>
                                     </SVGPath>
+                                    <Button fx:id="button_Airport_SelectRandomName" graphicTextGap="1.0" layoutX="435.0" layoutY="22.0" mnemonicParsing="false" onAction="#button_Airport_SelectRandomName_OnClick" prefHeight="21.0" prefWidth="20.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
+                                       </font>
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#ff0101" />
+                                                <Stop color="#ff0101" offset="0.007662835249042145" />
+                                                <Stop color="#1100ff" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Button>
+                                    <Text layoutX="312.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lokalizacja">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                             <stops>
+                                                <Stop color="#00dbff" />
+                                                <Stop color="#00dbff" offset="0.007662835249042145" />
+                                                <Stop color="#a517d1" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Text>
+                                    <TextField fx:id="textField_Airport_x" layoutX="301.0" layoutY="155.0" prefHeight="25.0" prefWidth="75.0" promptText="x..." />
+                                    <TextField fx:id="textField_Airport_y" layoutX="301.0" layoutY="181.0" prefHeight="25.0" prefWidth="75.0" promptText="y..." />
+                                    <Button fx:id="button_Airport_SelectRandomCoords" graphicTextGap="1.0" layoutX="376.0" layoutY="144.0" mnemonicParsing="false" onAction="#button_Airport_SelectRandomCoords_OnClick" prefHeight="49.0" prefWidth="48.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
+                                       </font>
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#ff0101" />
+                                                <Stop color="#6500ff" offset="0.007662835249042145" />
+                                                <Stop color="#ff0808" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
                       </Tab>
                         <Tab text="Lotniskowiec">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="319.0" prefWidth="600.0">
                                  <children>
+                                    <SVGPath content="M 0.743 10.668 C 0.743 10.668 3.353 10.668 3.37 10.668 C 3.353 10.734 3.387 9.135 3.387 9.135 C 3.387 9.135 6.13 9.037 6.13 9.07 C 6.13 9.07 6.197 -0.098 6.197 0 C 6.197 0 7.067 0.033 7.168 0 C 7.268 -0.033 8.975 7.863 8.975 7.895 C 8.975 7.863 10.983 10.701 11.016 10.734 C 11.049 10.734 13.927 10.734 13.961 10.799 C 13.961 10.832 17.173 13.8 17.173 13.833 C 17.173 13.866 41.668 14.061 47.658 14.061 C 47.992 14.061 48.093 13.605 48.394 13.605 C 49.431 13.605 50 13.605 50 13.605 C 50 13.605 48.628 16.247 47.825 17.063 C 47.022 17.846 43.609 19.999 43.609 19.999 L 2.215 19.999 L 1.312 17.976 C 1.312 17.976 0.074 15.954 0.074 15.954 C 0.074 15.888 -0.027 12.43 0.007 12.43 C 0.007 12.398 0.743 10.636 0.743 10.636 L 0.743 10.668 Z" layoutX="190.0" layoutY="220.0" scaleX="8.0" scaleY="8.0">
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                             <stops>
+                                                <Stop color="#1800ff" />
+                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
+                                                <Stop color="#2275a8" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </SVGPath>
                                     <SVGPath content="M 0.743 10.668 C 0.743 10.668 3.353 10.668 3.37 10.668 C 3.353 10.734 3.387 9.135 3.387 9.135 C 3.387 9.135 6.13 9.037 6.13 9.07 C 6.13 9.07 6.197 -0.098 6.197 0 C 6.197 0 7.067 0.033 7.168 0 C 7.268 -0.033 8.975 7.863 8.975 7.895 C 8.975 7.863 10.983 10.701 11.016 10.734 C 11.049 10.734 13.927 10.734 13.961 10.799 C 13.961 10.832 17.173 13.8 17.173 13.833 C 17.173 13.866 41.668 14.061 47.658 14.061 C 47.992 14.061 48.093 13.605 48.394 13.605 C 49.431 13.605 50 13.605 50 13.605 C 50 13.605 48.628 16.247 47.825 17.063 C 47.022 17.846 43.609 19.999 43.609 19.999 L 2.215 19.999 L 1.312 17.976 C 1.312 17.976 0.074 15.954 0.074 15.954 C 0.074 15.888 -0.027 12.43 0.007 12.43 C 0.007 12.398 0.743 10.636 0.743 10.636 L 0.743 10.668 Z" layoutX="469.0" layoutY="260.0" rotate="180.0" scaleX="4.0" scaleY="4.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
@@ -413,19 +462,27 @@
                                           </LinearGradient>
                                        </fill>
                                        <rotationAxis>
-                                          <Point3D y="1.0" />
+                                          <Point3D y="-1.0" />
                                        </rotationAxis>
                                     </SVGPath>
-                                    <SVGPath content="M 0.743 10.668 C 0.743 10.668 3.353 10.668 3.37 10.668 C 3.353 10.734 3.387 9.135 3.387 9.135 C 3.387 9.135 6.13 9.037 6.13 9.07 C 6.13 9.07 6.197 -0.098 6.197 0 C 6.197 0 7.067 0.033 7.168 0 C 7.268 -0.033 8.975 7.863 8.975 7.895 C 8.975 7.863 10.983 10.701 11.016 10.734 C 11.049 10.734 13.927 10.734 13.961 10.799 C 13.961 10.832 17.173 13.8 17.173 13.833 C 17.173 13.866 41.668 14.061 47.658 14.061 C 47.992 14.061 48.093 13.605 48.394 13.605 C 49.431 13.605 50 13.605 50 13.605 C 50 13.605 48.628 16.247 47.825 17.063 C 47.022 17.846 43.609 19.999 43.609 19.999 L 2.215 19.999 L 1.312 17.976 C 1.312 17.976 0.074 15.954 0.074 15.954 C 0.074 15.888 -0.027 12.43 0.007 12.43 C 0.007 12.398 0.743 10.636 0.743 10.636 L 0.743 10.668 Z" layoutX="189.0" layoutY="220.0" scaleX="8.0" scaleY="8.0">
-                                       <rotationAxis>
-                                          <Point3D />
-                                       </rotationAxis>
+                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="500.0" layoutY="150.0" rotate="270.0" scaleX="6.0" scaleY="6.0">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
                                                 <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2275a8" offset="1.0" />
+                                                <Stop color="#ff6868" offset="0.011494252873563218" />
+                                                <Stop color="#2ed344" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </SVGPath>
+                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="51.0" layoutY="147.0" scaleX="4.0" scaleY="4.0">
+                                       <fill>
+                                          <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                             <stops>
+                                                <Stop color="#1800ff" />
+                                                <Stop color="#ff00f9" offset="0.007662835249042145" />
+                                                <Stop color="#17d362" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
@@ -437,20 +494,19 @@
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
-                                                <Stop color="#433e80" />
-                                                <Stop color="#3e9c62" offset="0.2796934865900383" />
-                                                <Stop color="#eb2d52" offset="0.7547892720306509" />
-                                                <Stop color="#eb2d52" offset="1.0" />
+                                                <Stop color="#1800ff" />
+                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
+                                                <Stop color="#2ded49" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <Button layoutX="186.0" layoutY="251.0" mnemonicParsing="false" text="Dodaj Lotniskowiec" textAlignment="CENTER">
+                                    <Button layoutX="176.0" layoutY="255.0" mnemonicParsing="false" text="Dodaj Lotniskowiec" textAlignment="CENTER">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
-                                                <Stop color="#d111ab" />
-                                                <Stop color="#d31711" offset="1.0" />
+                                                <Stop color="#d31010" />
+                                                <Stop color="#820e86" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </textFill>
@@ -458,27 +514,27 @@
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                     </Button>
-                                    <Text layoutX="244.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pojemność">
+                                    <Text layoutX="150.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wielkość">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
-                                                <Stop color="#2a3630" />
-                                                <Stop color="#5cb9f7" offset="1.0" />
+                                                <Stop color="#34ff00" />
+                                                <Stop color="#2357ff" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <TextField layoutX="97.0" layoutY="30.0" prefHeight="51.0" prefWidth="407.0" promptText="Wpisz nazwę...">
+                                    <TextField layoutX="97.0" layoutY="30.0" prefHeight="51.0" prefWidth="334.0" promptText="Wpisz nazwę...">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                     </TextField>
                                     <Separator layoutX="52.0" layoutY="93.0" prefHeight="5.0" prefWidth="500.0" />
                                     <Separator layoutX="152.0" layoutY="234.0" prefHeight="5.0" prefWidth="300.0" />
-                                    <VBox alignment="CENTER" layoutX="137.0" layoutY="132.0" prefHeight="96.0" prefWidth="314.0">
+                                    <VBox alignment="CENTER" layoutX="136.0" layoutY="137.0" prefHeight="96.0" prefWidth="129.0">
                                        <children>
                                           <RadioButton mnemonicParsing="false" selected="true" text="Małe">
                                              <font>
@@ -487,7 +543,7 @@
                                              <textFill>
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
-                                                      <Stop color="#daaa1a" />
+                                                      <Stop color="#1135d1" />
                                                       <Stop color="#4f850f" offset="1.0" />
                                                    </stops>
                                                 </LinearGradient>
@@ -504,8 +560,8 @@
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
                                                       <Stop color="#cfb513" />
-                                                      <Stop color="#15cf74" offset="0.007662835249042145" />
-                                                      <Stop color="#3a5887" offset="1.0" />
+                                                      <Stop color="#cfb513" offset="0.007662835249042145" />
+                                                      <Stop color="#49b857" offset="1.0" />
                                                    </stops>
                                                 </LinearGradient>
                                              </textFill>
@@ -518,213 +574,56 @@
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
                                                       <Stop color="#cf1b13" />
-                                                      <Stop color="#682624" offset="0.007662835249042145" />
-                                                      <Stop color="#cf3515" offset="1.0" />
+                                                      <Stop color="#cf1b13" offset="0.007662835249042145" />
+                                                      <Stop color="#ffa000" offset="1.0" />
                                                    </stops>
                                                 </LinearGradient>
                                              </textFill>
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="491.0" layoutY="151.0" rotate="270.0" scaleX="6.0" scaleY="6.0">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                    <Button graphicTextGap="1.0" layoutX="435.0" layoutY="22.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="20.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
+                                       </font>
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#d01b1b" offset="0.011494252873563218" />
-                                                <Stop color="#1aff57" offset="1.0" />
+                                                <Stop color="#ff0101" />
+                                                <Stop color="RED" offset="0.007662835249042145" />
+                                                <Stop color="#00ff22" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
-                                       </fill>
-                                    </SVGPath>
-                                    <SVGPath content="M 0 4.359 L 1.07 3.29 C 1.672 2.689 2.676 2.889 2.676 2.889 L 5.686 3.29 L 7.224 1.82 C 8.027 1.018 8.763 2.221 8.428 2.622 L 7.626 3.557 L 10.903 4.158 L 11.974 2.889 C 13.178 1.486 14.047 2.689 13.512 3.49 L 12.776 4.359 L 17.659 5.027 C 21.874 0.952 23.546 -0.718 24.683 0.284 C 25.82 1.286 23.813 3.29 20.001 7.231 L 20.736 12.241 L 21.74 11.373 C 22.342 10.905 23.412 11.707 22.275 12.709 L 20.87 14.045 L 21.472 17.318 L 22.342 16.65 C 23.145 16.049 24.081 16.85 23.011 17.986 L 21.606 19.389 C 21.606 19.389 22.074 22.261 22.074 22.261 C 22.409 23.664 21.606 24.132 21.606 24.132 L 20.67 25 L 16.991 14.713 C 16.723 13.844 15.987 12.842 14.649 12.976 C 13.98 13.043 12.308 14.178 12.041 14.446 L 8.161 18.253 C 8.027 18.32 8.763 23.13 8.763 23.13 C 8.763 23.33 7.492 24.933 7.492 24.933 L 5.017 20.524 L 3.746 21.059 L 4.482 19.923 L 0 17.385 L 1.672 16.182 C 2.475 16.383 6.689 16.85 6.756 16.784 C 6.756 16.784 10.168 13.377 10.368 13.176 C 11.505 11.974 11.907 11.573 12.107 10.972 C 12.241 10.371 11.974 9.502 10.168 8.433 C 7.693 6.897 0 4.359 0 4.359 Z" layoutX="51.0" layoutY="157.0" scaleX="4.0" scaleY="4.0">
-                                       <fill>
-                                          <LinearGradient endX="0.6523809523809524" endY="0.35238095238095235">
-                                             <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2e6544" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </SVGPath>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Entity">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
-                                 <children>
-                                    <Text layoutX="78.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa">
+                                       </textFill>
+                                    </Button>
+                                    <Text layoutX="312.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lokalizacja">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2ded49" offset="1.0" />
+                                                <Stop color="#800323" />
+                                                <Stop color="#2293a4" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <Button fx:id="buttonAddCivilianPlane" layoutX="11.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddCivilianPlaneOnClick" text="Dodaj CP" textAlignment="CENTER">
+                                    <TextField layoutX="301.0" layoutY="155.0" prefHeight="25.0" prefWidth="75.0" promptText="x..." />
+                                    <TextField layoutX="301.0" layoutY="181.0" prefHeight="25.0" prefWidth="75.0" promptText="y..." />
+                                    <Button graphicTextGap="1.0" layoutX="376.0" layoutY="144.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
+                                       </font>
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
-                                                <Stop color="#d31010" />
-                                                <Stop color="#820e86" offset="1.0" />
+                                                <Stop color="#ff0101" />
+                                                <Stop color="#1c1fd9" offset="0.007662835249042145" />
+                                                <Stop color="#00ff26" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </textFill>
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                    </Button>
-                                    <Text layoutX="14.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozycja Startowa">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                             <stops>
-                                                <Stop color="#00ff88" />
-                                                <Stop color="#5cb9f7" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </Text>
-                                    <TextField fx:id="nameEntity" layoutX="30.0" layoutY="35.0" prefHeight="29.0" prefWidth="171.0" promptText="Wpisz nazwę...">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                       </font>
-                                    </TextField>
-                                    <Separator layoutX="28.0" layoutY="72.0" prefHeight="5.0" prefWidth="176.0" />
-                                    <Separator layoutX="152.0" layoutY="234.0" prefHeight="5.0" prefWidth="300.0" />
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="500.0" layoutY="49.0" scaleX="4.0" scaleY="4.0">
-                                       <rotationAxis>
-                                          <Point3D />
-                                       </rotationAxis>
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                             <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#7600ff" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </SVGPath>
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="500.0" layoutY="160.0" rotate="-180.0" scaleX="4.0" scaleY="4.0">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop color="#1135d1" />
-                                                <Stop color="RED" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </SVGPath>
-                                    <TextField layoutX="30.0" layoutY="112.0" prefHeight="31.0" prefWidth="80.0" promptText="x..." fx:id="xEntity">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                       </font>
-                                    </TextField>
-                                    <TextField fx:id="yEntity" layoutX="124.0" layoutY="112.0" prefHeight="31.0" prefWidth="80.0" promptText="y...">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                       </font>
-                                    </TextField>
-                                    <TextField fx:id="idEntity" layoutX="31.0" layoutY="190.0" prefHeight="29.0" prefWidth="171.0" promptText="Wpisz nazwę...">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                       </font>
-                                    </TextField>
-                                    <Text layoutX="101.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                             <stops>
-                                                <Stop color="#00ff88" />
-                                                <Stop color="#5cb9f7" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </Text>
-                                    <Text layoutX="249.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotacja">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
-                                             <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2ded49" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </Text>
-                                    <TextField fx:id="rotationEntity" layoutX="253.0" layoutY="35.0" prefHeight="31.0" prefWidth="80.0" promptText="kąt...">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
-                                       </font>
-                                    </TextField>
-                                    <Button fx:id="buttonAddCivilianShip" layoutX="203.0" layoutY="130.0" mnemonicParsing="false" onAction="#buttonAddCivilianShipOnClick" text="Dodaj CS" textAlignment="CENTER">
-                                       <textFill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop color="#d31010" />
-                                                <Stop color="#820e86" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </textFill>
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="buttonAddMilitaryShip" layoutX="203.0" layoutY="180.0" mnemonicParsing="false" onAction="#buttonAddMilitaryShipOnClick" text="Dodaj MS" textAlignment="CENTER">
-                                       <textFill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop color="#d31010" />
-                                                <Stop color="#820e86" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </textFill>
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="buttonAddMilitaryPlane" layoutX="191.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddMilitaryPlaneOnClick" text="Dodaj MP" textAlignment="CENTER">
-                                       <textFill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop color="#d31010" />
-                                                <Stop color="#820e86" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </textFill>
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="buttonAddAirport" layoutX="371.0" layoutY="252.0" mnemonicParsing="false" onAction="#buttonAddAirportOnClick" text="Dodaj A" textAlignment="CENTER">
-                                       <textFill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop color="#d31010" />
-                                                <Stop color="#820e86" offset="1.0" />
-                                             </stops>
-                                          </LinearGradient>
-                                       </textFill>
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
                                     </Button>
                                  </children>
                               </AnchorPane>

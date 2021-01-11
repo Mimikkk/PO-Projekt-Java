@@ -2,16 +2,18 @@ package classes;
 
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
-import javafx.animation.Transition;
+import javafx.scene.control.ListView;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
+import java.util.ArrayList;
+
 public abstract class Vehicle extends Entity {
-    private SIZE size;
     private final PathTransition transition = new PathTransition();
+    private String status;
     
-    public Vehicle(TYPE type) {
-        super(type);
+    public Vehicle(TYPE type, ArrayList<Integer> ids) {
+        super(type, ids);
         transition.setNode(this.getSprite());
         transition.setInterpolator(Interpolator.EASE_BOTH);
         transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -28,10 +30,7 @@ public abstract class Vehicle extends Entity {
     }
     
     public PathTransition getTransition() { return transition; }
-    
-    public enum SIZE {
-        SMALL,
-        MEDIUM,
-        BIG;
+    public String getStatus() {
+        return this.status;
     }
 }

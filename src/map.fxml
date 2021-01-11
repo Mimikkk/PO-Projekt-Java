@@ -15,16 +15,10 @@
             <items>
               <MenuItem fx:id="buttonControlPanelOpen" mnemonicParsing="false" onAction="#buttonControlPanelOnAction" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="buttonQuit" mnemonicParsing="false" onAction="#buttonQuitOnAction" text="Quit" />
+                  <MenuItem fx:id="buttonQuit" mnemonicParsing="false" onAction="#menu_Quit_OnAction" text="Quit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Load" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Pomoc">
             <items>
               <MenuItem mnemonicParsing="false" text="About Project" />
             </items>

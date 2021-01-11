@@ -25,7 +25,7 @@ public class MapController implements Initializable {
     
     @FXML private MenuItem buttonControlPanelOpen;
     @FXML private MenuItem buttonQuit;
-    
+
     @FXML private AnchorPane map;
     public AnchorPane getMap() { return map; }
     
@@ -33,7 +33,7 @@ public class MapController implements Initializable {
         this.controlPanelStage.show();
         this.controlPanelStage.toFront();
     }
-    @FXML private void buttonQuitOnAction(ActionEvent event) {
+    @FXML private void menu_Quit_OnAction(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Dialog");
         alert.setHeaderText("Are you sure you want to exit?");
@@ -51,10 +51,9 @@ public class MapController implements Initializable {
             
             this.controlPanelController = loader.getController();
             this.controlPanelController.init(this);
-            
             this.controlPanelStage = new Stage();
             
-            controlPanelStage.setTitle("Control Panel");
+            controlPanelStage.setTitle("Panel Sterowania");
             controlPanelStage.setScene(new Scene(root));
             controlPanelStage.setResizable(false);
             
@@ -65,7 +64,6 @@ public class MapController implements Initializable {
     public void addToMap(Entity entity) {
         this.map.getChildren().add(entity.getSprite());
     }
-
     public void removeFromMap(Entity entity) {
         this.map.getChildren().remove(entity.getSprite());
     }
