@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -53,34 +54,20 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="planeMilitaryListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
+                                          <ListView fx:id="listView_MilitaryPlaneDisplay" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
                                 </items>
                               </SplitPane>
                            </content>
                       </Tab>
-                        <Tab text="Samoloty Cywilne">
-                           <content>
-                              <SplitPane dividerPositions="0.4" prefHeight="160.0" prefWidth="200.0">
-                                 <items>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <ListView fx:id="planeCivilianListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                 </items>
-                              </SplitPane>
-                           </content>
-                        </Tab>
                         <Tab text="Wycieczkowce">
                            <content>
                               <SplitPane dividerPositions="0.4" prefHeight="160.0" prefWidth="200.0">
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="shipCivilianListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
+                                          <ListView fx:id="listView_CivilianShipDisplay" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
@@ -94,8 +81,8 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="airportListView" layoutX="19.0" layoutY="14.0" onMouseClicked="#button_AirportListView_OnClicked" prefHeight="290.0" prefWidth="200.0" />
-                                          <Button fx:id="button_Airport_Remove" layoutX="97.0" layoutY="277.0" mnemonicParsing="false" onAction="#button_Airport_Remove_OnClicked" text="Usuń">
+                                          <ListView fx:id="listView_AirportDisplay" layoutX="19.0" layoutY="14.0" onMouseClicked="#button_AirportListViewDisplay_OnClicked" prefHeight="290.0" prefWidth="200.0" />
+                                          <Button fx:id="button_AirportDisplay_Remove" layoutX="97.0" layoutY="277.0" mnemonicParsing="false" onAction="#button_Airport_Remove_OnClicked" text="Usuń">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="12.0" />
                                              </font>
@@ -141,7 +128,7 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Text>
-                                          <ListView fx:id="listView_Airport_cargoDisplay" layoutX="142.0" layoutY="173.0" prefHeight="130.0" prefWidth="202.0" />
+                                          <ListView fx:id="listView_AirportDisplay_cargo" layoutX="142.0" layoutY="173.0" prefHeight="130.0" prefWidth="202.0" />
                                           <Text layoutX="9.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ładowność">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="24.0" />
@@ -156,27 +143,27 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Text>
-                                          <TextField fx:id="textField_Airport_idDisplay" editable="false" layoutX="143.0" layoutY="12.0" prefHeight="37.0" prefWidth="199.0" promptText="Wybierz Samolot...">
+                                          <TextField fx:id="textField_AirportDisplay_id" editable="false" layoutX="143.0" layoutY="12.0" prefHeight="37.0" prefWidth="199.0" promptText="Wybierz Samolot...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="textField_Airport_xDisplay" editable="false" layoutX="143.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="x...">
+                                          <TextField fx:id="textField_AirportDisplay_x" editable="false" layoutX="143.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="x...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="textField_Airport_capacityCurrentDisplay" alignment="CENTER" editable="false" layoutX="22.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="C">
+                                          <TextField fx:id="textField_AirportDisplay_capacityCurrent" alignment="CENTER" editable="false" layoutX="22.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="C">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="textField_Airport_capacityMaxDisplay" alignment="CENTER" editable="false" layoutX="75.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="M">
+                                          <TextField fx:id="textField_AirportDisplay_capacityMax" alignment="CENTER" editable="false" layoutX="75.0" layoutY="240.0" prefHeight="37.0" prefWidth="47.0" promptText="M">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="textField_Airport_yDisplay" editable="false" layoutX="252.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="y...">
+                                          <TextField fx:id="textField_AirportDisplay_y" editable="false" layoutX="251.0" layoutY="62.0" prefHeight="37.0" prefWidth="91.0" promptText="y...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
@@ -184,7 +171,7 @@
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="90.0" layoutX="25.0" layoutY="110.0" stroke="#bcbcbc" strokeType="INSIDE" width="90.0" />
                                           <AnchorPane fx:id="anchorPane_Airport_IconDisplay" layoutX="25.0" layoutY="110.0" prefHeight="90.0" prefWidth="90.0">
                                              <children>
-                                                <SVGPath />
+                                                <SVGPath fx:id="svgPath_AirportDisplay_icon" />
                                              </children>
                                           </AnchorPane>
                                           <Text layoutX="128.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rozmiar:">
@@ -201,7 +188,7 @@
                                                 </LinearGradient>
                                              </fill>
                                           </Text>
-                                          <TextField fx:id="textField_Airport_sizeDisplay" editable="false" layoutX="231.0" layoutY="119.0" prefHeight="37.0" prefWidth="112.0" promptText="Rzmr...">
+                                          <TextField fx:id="textField_AirportDisplay_size" editable="false" layoutX="231.0" layoutY="119.0" prefHeight="37.0" prefWidth="112.0" promptText="Rzmr...">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
@@ -217,10 +204,153 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ListView fx:id="shipMilitaryListView" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
+                                          <ListView fx:id="listView_MilitaryShipDisplay" layoutX="19.0" layoutY="14.0" prefHeight="290.0" prefWidth="200.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                 </items>
+                              </SplitPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Samoloty Cywilne">
+                           <content>
+                              <SplitPane disable="true" dividerPositions="0.4" prefHeight="160.0" prefWidth="200.0">
+                                 <items>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <ListView fx:id="listView_CivilianPlaneDisplay" layoutX="19.0" layoutY="14.0" onMouseClicked="#button_CivilianPlaneListViewDisplay_OnClicked" prefHeight="290.0" prefWidth="200.0" />
+                                          <Button fx:id="button_CivilianPlaneDisplay_Remove" layoutX="97.0" layoutY="277.0" mnemonicParsing="false" onAction="#button_CivilianPlane_Remove_OnClicked" text="Usuń">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="12.0" />
+                                             </font>
+                                             <textFill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#297fff" offset="0.007662835249042145" />
+                                                      <Stop color="#ad22d0" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </textFill>
+                                          </Button>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <Text layoutX="186.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#ff00f9" offset="0.007662835249042145" />
+                                                      <Stop color="#17d362" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <Text layoutX="130.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pozycja:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#003282" offset="0.007662835249042145" />
+                                                      <Stop color="#d72954" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <ListView fx:id="listView_CivilianPlaneDisplay_Path" layoutX="142.0" layoutY="173.0" prefHeight="130.0" prefWidth="202.0" />
+                                          <Text layoutX="8.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ładowność">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient cycleMethod="REFLECT" endX="0.7142857142857143" endY="0.5761904761904761">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#7d0049" offset="0.007662835249042145" />
+                                                      <Stop color="#e81414" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_id" editable="false" layoutX="230.0" layoutY="12.0" prefHeight="37.0" prefWidth="112.0" promptText="Wybierz...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_x" editable="false" layoutX="231.0" layoutY="62.0" prefHeight="37.0" prefWidth="55.0" promptText="x...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_currentPassenger" alignment="CENTER" editable="false" layoutX="3.0" layoutY="206.0" prefHeight="37.0" prefWidth="133.0" promptText="C">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_maxCapacity" alignment="CENTER" editable="false" layoutX="28.0" layoutY="243.0" prefHeight="37.0" prefWidth="80.0" promptText="M">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_y" editable="false" layoutX="287.0" layoutY="62.0" prefHeight="37.0" prefWidth="55.0" promptText="y...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="90.0" layoutX="20.0" layoutY="63.0" stroke="#bcbcbc" strokeType="INSIDE" width="90.0" />
+                                          <AnchorPane layoutX="20.0" layoutY="63.0" prefHeight="90.0" prefWidth="90.0">
+                                             <children>
+                                                <SVGPath fx:id="svgPath_CivilianPlaneDisplay_icon" />
+                                             </children>
+                                          </AnchorPane>
+                                          <Text layoutX="122.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rozmiar:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#003282" offset="0.007662835249042145" />
+                                                      <Stop color="#0de8c3" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_size" editable="false" layoutX="231.0" layoutY="119.0" prefHeight="37.0" prefWidth="112.0" promptText="Rzmr...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Text layoutX="2.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cel:">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                             </font>
+                                             <fill>
+                                                <LinearGradient endX="0.6523809523809524" endY="0.7238095238095238">
+                                                   <stops>
+                                                      <Stop color="#1800ff" />
+                                                      <Stop color="#003282" offset="0.007662835249042145" />
+                                                      <Stop color="#d72954" offset="1.0" />
+                                                   </stops>
+                                                </LinearGradient>
+                                             </fill>
+                                          </Text>
+                                          <TextField fx:id="textField_CivilianPlaneDisplay_currentDestination" editable="false" layoutX="59.0" layoutY="12.0" prefHeight="37.0" prefWidth="112.0" promptText="Wybierz...">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold Italic" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </AnchorPane>
                                  </items>
                               </SplitPane>
                            </content>
@@ -868,21 +998,18 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="356.0">
                                  <children>
-                                    <Text layoutX="62.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa">
-                                       <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
-                                       </font>
+                                    <SVGPath cache="true" content="M 20 0 C 8.956 0 0 9.154 0 20.448 C 0 31.917 8.75 39.756 20 50 C 31.25 39.756 40 31.917 40 20.448 C 40 9.154 31.044 0 20 0 Z M 20 37.5 C 11.162 37.5 4 30.038 4 20.833 C 4 11.629 11.162 4.167 20 4.167 C 28.838 4.167 36 11.629 36 20.833 C 36 30.038 28.838 37.5 20 37.5 Z M 12.78 22.496 L 18.442 19.575 L 12.638 14.419 L 14.434 13.494 L 23.828 16.798 L 28.316 14.483 C 29.5 13.865 31.454 14.031 31.898 14.965 C 31.968 15.113 32 15.281 32 15.463 C 31.996 16.417 31.08 17.708 30.094 18.223 L 25.606 20.538 L 22.434 30.325 L 20.638 31.25 L 20.22 23.317 L 14.556 26.235 L 13.388 29.169 L 12.132 29.815 L 11.694 25.385 L 8.576 22.335 L 9.832 21.688 L 12.78 22.496 Z" layoutX="512.0" layoutY="226.0" rotate="-36.9" scaleX="5.0" scaleY="5.0">
                                        <fill>
-                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                          <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
-                                                <Stop color="#1800ff" />
-                                                <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#2ded49" offset="1.0" />
+                                                <Stop color="#86cf13" />
+                                                <Stop color="#86cf13" offset="0.007662835249042145" />
+                                                <Stop color="#03c2e4" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
-                                    </Text>
-                                    <Button layoutX="201.0" layoutY="252.0" mnemonicParsing="false" text="Dodaj Samolot" textAlignment="CENTER">
+                                    </SVGPath>
+                                    <Button fx:id="button_CivilianPlane_AddToAirport" layoutX="201.0" layoutY="252.0" mnemonicParsing="false" onAction="#button_CivilianPlane_AddToAirport_OnClick" text="Dodaj Samolot" textAlignment="CENTER">
                                        <textFill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
@@ -895,29 +1022,60 @@
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                     </Button>
-                                    <Text layoutX="244.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pojemność">
+                                    <Text layoutX="93.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lotniska">
                                        <font>
                                           <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                        </font>
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
-                                                <Stop color="#00ff88" />
-                                                <Stop color="#5cb9f7" offset="1.0" />
+                                                <Stop color="#ff00c7" />
+                                                <Stop color="#ff00c7" offset="0.007662835249042145" />
+                                                <Stop color="#1e80bc" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                     </Text>
-                                    <TextField layoutX="14.0" layoutY="30.0" prefHeight="29.0" prefWidth="171.0" promptText="Wpisz nazwę...">
+                                    <Separator layoutX="137.0" layoutY="246.0" prefHeight="5.0" prefWidth="300.0" />
+                                    <SVGPath content="M 20 1.045 C 20 1.875 19.289 3.002 17.867 4.424 L 14.431 7.86 L 16.478 18.54 L 16.493 18.626 C 16.493 18.759 16.45 18.869 16.364 18.955 L 15.447 19.871 C 15.362 19.957 15.252 20 15.118 20 C 14.918 20 14.779 19.914 14.703 19.742 L 10.78 11.51 L 7.273 15.018 C 7.922 17.289 8.246 18.492 8.246 18.626 C 8.246 18.759 8.203 18.869 8.117 18.955 L 7.201 19.871 C 7.115 19.957 7.006 20 6.872 20 C 6.7 20 6.566 19.924 6.471 19.771 L 4.252 15.762 L 0.243 13.543 C 0.081 13.457 0 13.324 0 13.142 C 0 13.009 0.043 12.899 0.129 12.813 L 1.045 11.883 C 1.131 11.797 1.241 11.754 1.374 11.754 C 1.508 11.754 2.711 12.078 4.982 12.727 L 8.49 9.22 L 0.258 5.297 C 0.086 5.221 0 5.082 0 4.882 C 0 4.748 0.043 4.639 0.129 4.553 L 1.045 3.636 C 1.131 3.551 1.241 3.508 1.374 3.508 C 1.413 3.508 1.441 3.512 1.46 3.522 L 12.14 5.569 L 15.576 2.133 C 16.998 0.711 18.125 0 18.955 0 C 19.26 0 19.511 0.098 19.707 0.294 C 19.902 0.489 20 0.74 20 1.045 Z" layoutX="536.0" layoutY="36.0" rotate="-180.0" scaleX="4.0" scaleY="4.0">
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#1135d1" />
+                                                <Stop color="#d03eb0" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </SVGPath>
+                                    <SVGPath content="M 20 1.045 C 20 1.875 19.289 3.002 17.867 4.424 L 14.431 7.86 L 16.478 18.54 L 16.493 18.626 C 16.493 18.759 16.45 18.869 16.364 18.955 L 15.447 19.871 C 15.362 19.957 15.252 20 15.118 20 C 14.918 20 14.779 19.914 14.703 19.742 L 10.78 11.51 L 7.273 15.018 C 7.922 17.289 8.246 18.492 8.246 18.626 C 8.246 18.759 8.203 18.869 8.117 18.955 L 7.201 19.871 C 7.115 19.957 7.006 20 6.872 20 C 6.7 20 6.566 19.924 6.471 19.771 L 4.252 15.762 L 0.243 13.543 C 0.081 13.457 0 13.324 0 13.142 C 0 13.009 0.043 12.899 0.129 12.813 L 1.045 11.883 C 1.131 11.797 1.241 11.754 1.374 11.754 C 1.508 11.754 2.711 12.078 4.982 12.727 L 8.49 9.22 L 0.258 5.297 C 0.086 5.221 0 5.082 0 4.882 C 0 4.748 0.043 4.639 0.129 4.553 L 1.045 3.636 C 1.131 3.551 1.241 3.508 1.374 3.508 C 1.413 3.508 1.441 3.512 1.46 3.522 L 12.14 5.569 L 15.576 2.133 C 16.998 0.711 18.125 0 18.955 0 C 19.26 0 19.511 0.098 19.707 0.294 C 19.902 0.489 20 0.74 20 1.045 Z" layoutX="34.0" layoutY="268.0" scaleX="3.0" scaleY="3.0">
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#1135d1" />
+                                                <Stop color="#91edff" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </SVGPath>
+                                    <ChoiceBox fx:id="choiceBox_CivilianPlane_selectedAirport" layoutX="55.0" layoutY="34.0" prefHeight="25.0" prefWidth="170.0" />
+                                    <Button fx:id="button_CivilianPlane_SelectRandomAirport" graphicTextGap="1.0" layoutX="225.0" layoutY="34.0" mnemonicParsing="false" onAction="#button_CivilianPlane_SelectRandomAirport_OnClick" prefHeight="49.0" prefWidth="48.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
                                        <font>
-                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
                                        </font>
-                                    </TextField>
-                                    <Separator layoutX="14.0" layoutY="70.0" prefHeight="5.0" prefWidth="200.0" />
-                                    <Separator layoutX="152.0" layoutY="234.0" prefHeight="5.0" prefWidth="300.0" />
-                                    <VBox alignment="CENTER" layoutX="137.0" layoutY="132.0" prefHeight="96.0" prefWidth="314.0">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#ff0101" />
+                                                <Stop color="RED" offset="0.007662835249042145" />
+                                                <Stop color="#ffee00" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Button>
+                                    <ListView fx:id="listView_CivilianPlane_Path" layoutX="56.0" layoutY="88.0" prefHeight="150.0" prefWidth="168.0" />
+                                    <VBox alignment="CENTER" layoutX="327.0" layoutY="80.0" prefHeight="96.0" prefWidth="153.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" selected="true" text="Małe">
+                                          <RadioButton fx:id="radioButton_CivilianPlane_small" mnemonicParsing="false" selected="true" text="Małe">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="12.0" />
                                              </font>
@@ -930,10 +1088,10 @@
                                                 </LinearGradient>
                                              </textFill>
                                              <toggleGroup>
-                                                <ToggleGroup fx:id="AirportSize23" />
+                                                <ToggleGroup fx:id="toggleGroup_CivilianPlane_size" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="Średnie" toggleGroup="$AirportSize23">
+                                          <RadioButton fx:id="radioButton_CivilianPlane_medium" mnemonicParsing="false" text="Średnie" toggleGroup="$toggleGroup_CivilianPlane_size">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="18.0" />
                                              </font>
@@ -947,7 +1105,7 @@
                                                 </LinearGradient>
                                              </textFill>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="Wielkie" toggleGroup="$AirportSize23">
+                                          <RadioButton fx:id="radioButton_CivilianPlane_big" mnemonicParsing="false" text="Wielkie" toggleGroup="$toggleGroup_CivilianPlane_size">
                                              <font>
                                                 <Font name="Comic Sans MS Bold Italic" size="24.0" />
                                              </font>
@@ -963,30 +1121,84 @@
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="100.0" layoutY="150.0" scaleX="4.0" scaleY="4.0">
-                                       <rotationAxis>
-                                          <Point3D />
-                                       </rotationAxis>
+                                    <Text layoutX="353.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wielkość">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="0.9333333333333333">
+                                             <stops>
+                                                <Stop color="#00ff88" />
+                                                <Stop color="#5cb9f7" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Text>
+                                    <Text layoutX="107.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trasa">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="24.0" />
+                                       </font>
                                        <fill>
                                           <LinearGradient endX="1.0" endY="0.9333333333333333">
                                              <stops>
                                                 <Stop color="#1800ff" />
                                                 <Stop color="#ff00f9" offset="0.011494252873563218" />
-                                                <Stop color="#7600ff" offset="1.0" />
+                                                <Stop color="#69a803" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
-                                    </SVGPath>
-                                    <SVGPath content="M12 0c-5.522 0-10 4.394-10 9.815 0 5.505 4.375 9.268 10 14.185 5.625-4.917 10-8.68 10-14.185 0-5.421-4.478-9.815-10-9.815zm0 18c-4.419 0-8-3.582-8-8s3.581-8 8-8c4.419 0 8 3.582 8 8s-3.581 8-8 8zm-3.61-7.202l2.831-1.402-2.902-2.475.898-.444 4.697 1.586 2.244-1.111c.592-.297 1.569-.217 1.791.231.035.071.051.152.051.239-.002.458-.46 1.078-.953 1.325l-2.244 1.111-1.586 4.698-.898.444-.209-3.808-2.832 1.401-.584 1.408-.628.31-.219-2.126-1.559-1.464.628-.311 1.474.388z" layoutX="500.0" layoutY="160.0" rotate="-180.0" scaleX="4.0" scaleY="4.0">
+                                    </Text>
+                                    <Button fx:id="button_CivilianPlane_CreateRandomPath" graphicTextGap="1.0" layoutX="225.0" layoutY="124.0" mnemonicParsing="false" onAction="#button_CivilianPlane_CreateRandomPath_OnClick" prefHeight="49.0" prefWidth="48.0" scaleShape="false" text="🎲" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Comic Sans MS Bold" size="33.0" />
+                                       </font>
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#ff0101" />
+                                                <Stop color="#6500ff" offset="0.007662835249042145" />
+                                                <Stop color="#00c5ff" offset="0.5120274914089348" />
+                                                <Stop color="#ff0808" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Button>
+                                    <SVGPath content="M 20 1.045 C 20 1.875 19.289 3.002 17.867 4.424 L 14.431 7.86 L 16.478 18.54 L 16.493 18.626 C 16.493 18.759 16.45 18.869 16.364 18.955 L 15.447 19.871 C 15.362 19.957 15.252 20 15.118 20 C 14.918 20 14.779 19.914 14.703 19.742 L 10.78 11.51 L 7.273 15.018 C 7.922 17.289 8.246 18.492 8.246 18.626 C 8.246 18.759 8.203 18.869 8.117 18.955 L 7.201 19.871 C 7.115 19.957 7.006 20 6.872 20 C 6.7 20 6.566 19.924 6.471 19.771 L 4.252 15.762 L 0.243 13.543 C 0.081 13.457 0 13.324 0 13.142 C 0 13.009 0.043 12.899 0.129 12.813 L 1.045 11.883 C 1.131 11.797 1.241 11.754 1.374 11.754 C 1.508 11.754 2.711 12.078 4.982 12.727 L 8.49 9.22 L 0.258 5.297 C 0.086 5.221 0 5.082 0 4.882 C 0 4.748 0.043 4.639 0.129 4.553 L 1.045 3.636 C 1.131 3.551 1.241 3.508 1.374 3.508 C 1.413 3.508 1.441 3.512 1.46 3.522 L 12.14 5.569 L 15.576 2.133 C 16.998 0.711 18.125 0 18.955 0 C 19.26 0 19.511 0.098 19.707 0.294 C 19.902 0.489 20 0.74 20 1.045 Z" layoutX="18.0" layoutY="88.0" rotate="43.6">
                                        <fill>
                                           <LinearGradient endX="1.0" endY="1.0">
                                              <stops>
                                                 <Stop color="#1135d1" />
-                                                <Stop color="RED" offset="1.0" />
+                                                <Stop color="#ff8f8f" offset="1.0" />
                                              </stops>
                                           </LinearGradient>
                                        </fill>
                                     </SVGPath>
+                                    <Button fx:id="button_CivilianPlane_AddSelectedToPath" layoutX="56.0" layoutY="207.0" mnemonicParsing="false" onAction="#button_CivilianPlane_AddSelectedToPath_OnClick" text="Dodaj" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#f59797" />
+                                                <Stop color="#f00cb4" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="button_CivilianPlane_RemoveFromPath" layoutX="172.0" layoutY="207.0" mnemonicParsing="false" onAction="#button_CivilianPlane_RemoveSelectedFromPath_OnClick" text="Usuń" textAlignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#d31010" />
+                                                <Stop color="#f25f0a" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font name="Comic Sans MS Bold Italic" size="14.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>

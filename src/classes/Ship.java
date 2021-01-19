@@ -1,16 +1,12 @@
 package classes;
 
 import javafx.geometry.Point2D;
-import javafx.scene.control.ListView;
 import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-import java.util.ArrayList;
-
-public class Ship extends Vehicle {
-    public Ship(TYPE type, ArrayList<Integer> ids) {
-        super(type, ids);
+public abstract class Ship extends Vehicle {
+    public Ship(TYPE type) {
+        super(type);
     }
     
     

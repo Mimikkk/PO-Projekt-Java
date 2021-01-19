@@ -13,9 +13,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="Control Panel">
             <items>
-              <MenuItem fx:id="buttonControlPanelOpen" mnemonicParsing="false" onAction="#buttonControlPanelOnAction" text="Open" />
+              <MenuItem fx:id="menuItem_MenuBar_openControlPanel" mnemonicParsing="false" onAction="#menuItem_MenuBar_openControlPanel_OnAction" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="buttonQuit" mnemonicParsing="false" onAction="#menu_Quit_OnAction" text="Quit" />
+                  <MenuItem fx:id="menuItem_MenuBar_quitApplication" mnemonicParsing="false" onAction="#menuItem_MenuBar_quitApplication_OnAction" text="Quit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Pomoc">

@@ -10,38 +10,34 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.*;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class MapController implements Initializable {
+@SuppressWarnings("unused") public class MapController implements Initializable {
     private ControlPanelController controlPanelController;
     private Stage controlPanelStage;
     
-    @FXML private MenuItem buttonControlPanelOpen;
-    @FXML private MenuItem buttonQuit;
-
+    @FXML private MenuItem menuItem_MenuBar_openControlPanel;
+    @FXML private MenuItem menuItem_MenuBar_quitApplication;
+    
     @FXML private AnchorPane map;
     public AnchorPane getMap() { return map; }
     
-    @FXML private void buttonControlPanelOnAction(ActionEvent event) {
+    @FXML private void menuItem_MenuBar_openControlPanel_OnAction(ActionEvent event) {
         this.controlPanelStage.show();
         this.controlPanelStage.toFront();
     }
-    @FXML private void menu_Quit_OnAction(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    @FXML private void menuItem_MenuBar_quitApplication_OnAction(ActionEvent event) {
+        var alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Dialog");
         alert.setHeaderText("Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
-        
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Platform.exit();
-        }
+        result.ifPresent(e -> {if (e == ButtonType.OK) Platform.exit(); });
     }
     
     @Override public void initialize(URL location, ResourceBundle resources) {
