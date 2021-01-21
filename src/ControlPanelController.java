@@ -11,6 +11,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -81,7 +82,8 @@ import java.util.function.Supplier;
         
         entity.getLocation().getPlanes().remove(entity);
         listView_CivilianPlaneDisplay.getItems().remove(entity);
-        mapController.removeFromMap(entity);
+        mapController.removeFromMap(entity.getSprite());
+        entity.setRunning(false);
     }
     //endregion
     
@@ -144,12 +146,45 @@ import java.util.function.Supplier;
         svgPath_AirportDisplay_icon.setContent("");
         
         listView_AirportDisplay.getItems().remove(entity);
-        mapController.removeFromMap(entity);
+        Database.Names.Airports.remove(entity.getName());
+        mapController.removeFromMap(entity.getSprite());
     }
     //endregion
     //endregion
     
     //region [Constructor]
+    
+    private void utils_raiseCreationAlert() {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Creation Err");
+        alert.setHeaderText("Not all items selected...");
+        alert.showAndWait();
+    }
+    private Point2D utils_createRandomPointInBounds(Point2D origin) {
+        int x = (int) (origin.getX() + random.nextInt(
+                (int) (this.mapController.getMap().getLayoutBounds().getWidth() - 5 * origin.getX())));
+        int y = (int) (origin.getY() + random.nextInt(
+                (int) (this.mapController.getMap().getLayoutBounds().getHeight() - 5 * origin.getY())));
+        return new Point2D(x, y);
+    }
+    private int utils_getXInBoundsFromField(TextField field, Entity entity) {
+        return (int) Math.max(entity.getType().getOrigin().getX(),
+                Math.min(Double.parseDouble(field.getText()),
+                        this.mapController.getMap().getLayoutBounds().getWidth()
+                                - entity.getType().getOrigin().getX()));
+    }
+    private int utils_getYInBoundsFromField(TextField field, Entity entity) {
+        return (int) Math.max(entity.getType().getOrigin().getY(),
+                Math.min(Double.parseDouble(field.getText()),
+                        this.mapController.getMap().getLayoutBounds().getHeight()
+                                - entity.getType().getOrigin().getY()));
+    }
+    private void utils_SetRandomNameToField(Database.Names nameDatabase, TextField nameTextField) {
+        var previous = nameTextField.getText();
+        nameTextField.setText(nameDatabase.getNew());
+        nameDatabase.remove(previous);
+    }
+    
     
     //region [Civilian Planes]
     @FXML private ChoiceBox<Airport> choiceBox_CivilianPlane_selectedAirport;
@@ -181,10 +216,8 @@ import java.util.function.Supplier;
         listView_CivilianPlane_Path.getItems().clear();
         random.ints(2 + random.nextInt(size * 2 - 2)).forEach(ignored -> {
             do {ref.i = random.nextInt(size);} while (ref.i == ref.prev);
+            listView_CivilianPlane_Path.getItems().add(Database.getAirports().get(ref.i));
             ref.prev = ref.i;
-            listView_CivilianPlane_Path.getItems().add(
-                    Database.getAirports().get(ref.i)
-            );
         });
     }
     @FXML private void button_CivilianPlane_AddSelectedToPath_OnClick(ActionEvent event) {
@@ -196,7 +229,7 @@ import java.util.function.Supplier;
         this.listView_CivilianPlane_Path.getItems().add(airport);
     }
     
-    private SIZE CivilianPlane_getSize() {
+    private SIZE utils_CivilianPlane_getSize() {
         if (radioButton_CivilianPlane_small.isSelected()) return SIZE.SMALL;
         if (radioButton_CivilianPlane_medium.isSelected()) return SIZE.MEDIUM;
         return SIZE.BIG;
@@ -207,9 +240,9 @@ import java.util.function.Supplier;
                 this.listView_CivilianPlane_Path.getSelectionModel().getSelectedItem());
     }
     @FXML private void button_CivilianPlane_AddToAirport_OnClick(ActionEvent event) {
-        if (listView_CivilianPlane_Path.getItems().size() < 2) return;
+        if (listView_CivilianPlane_Path.getItems().size() < 2) utils_raiseCreationAlert();
         
-        var size = CivilianPlane_getSize();
+        var size = utils_CivilianPlane_getSize();
         ObservableList<Airport> path = FXCollections.observableArrayList();
         path.addAll(listView_CivilianPlane_Path.getItems());
         var plane = new CivilianPlane(size, path);
@@ -221,27 +254,134 @@ import java.util.function.Supplier;
     //endregion
     
     //region [Military Planes]
-    // TODO Like Civilian Plane
-    @FXML private Button buttonAddMilitaryPlane;
-    @FXML private void button_AddMilitaryPlane_OnClick(ActionEvent event) {
-        addEntityToMap(new MilitaryPlane());
+    @FXML private ChoiceBox<MilitaryShip> choiceBox_MilitaryPlane_selectedMilitaryShip;
+    
+    @FXML private Button button_MilitaryPlane_AddToMilitaryShip;
+    @FXML private Button button_MilitaryPlane_SelectRandomMilitaryShip;
+    @FXML private Button button_MilitaryPlane_CreateRandomPath;
+    @FXML private Button button_MilitaryPlane_AddSelectedToPath;
+    @FXML private Button button_MilitaryPlane_RemoveSelectedFromPath;
+    
+    @FXML private ListView<MilitaryShip> listView_MilitaryPlane_Path;
+    @FXML private void button_MilitaryPlane_SelectRandomMilitaryShip_OnClick(ActionEvent event) {
+        var size = Database.getAirports().size();
+        if (size < 1) return;
+        choiceBox_MilitaryPlane_selectedMilitaryShip.getSelectionModel().select(random.nextInt(size));
+    }
+    @FXML private void button_MilitaryPlane_CreateRandomPath_OnClick(ActionEvent event) {
+        var size = Database.getMilitaryShips().size();
+        if (size < 2) return;
+        
+        var ref = new Object() {
+            int prev = -1;
+            int i;
+        };
+        listView_MilitaryPlane_Path.getItems().clear();
+        random.ints(2 + random.nextInt(size * 2 - 2)).forEach(ignored -> {
+            do {ref.i = random.nextInt(size);} while (ref.i == ref.prev);
+            listView_MilitaryPlane_Path.getItems().add(Database.getMilitaryShips().get(ref.i));
+            ref.prev = ref.i;
+        });
+    }
+    @FXML private void button_MilitaryPlane_AddSelectedToPath_OnClick(ActionEvent event) {
+        var militaryShip = this.choiceBox_MilitaryPlane_selectedMilitaryShip.getValue();
+        if (militaryShip == null
+                || (!this.listView_MilitaryPlane_Path.getItems().isEmpty()
+                && militaryShip == this.listView_MilitaryPlane_Path.getItems()
+                .get(this.listView_MilitaryPlane_Path.getItems().size() - 1))) return;
+        this.listView_MilitaryPlane_Path.getItems().add(militaryShip);
+    }
+    
+    private WEAPON utils_MilitaryPlane_getWeapon() {
+        return listView_MilitaryPlane_Path.getItems().get(0).getWeapon();
+    }
+    @FXML private void button_MilitaryPlane_Add_OnClick(ActionEvent event) {
+        if (listView_MilitaryPlane_Path.getItems().size() < 2) utils_raiseCreationAlert();
+        
+        addEntityToMap(new MilitaryPlane(utils_MilitaryPlane_getWeapon()));
     }
     //endregion
     
     //region [Civilian Ships]
-    // TODO Like Civilian Plane
-    @FXML private Button buttonAddCivilianShip;
-    @FXML private void button_AddCivilianShip_OnClick(ActionEvent event) {
-        addEntityToMap(new CivilianShip());
+    @FXML private Button button_CivilianShip_Add;
+    @FXML private ImageView imageView_CivilianShip_pablo;
+    
+    @FXML private ChoiceBox<FIRM> choiceBox_CivilianShip_selectedFirm;
+    @FXML private ToggleGroup toggleGroup_CivilianShip_size;
+    @FXML private RadioButton radioButton_CivilianShip_small;
+    @FXML private RadioButton radioButton_CivilianShip_medium;
+    @FXML private RadioButton radioButton_CivilianShip_big;
+    
+    private SIZE utils_CivilianShip_getSize() {
+        if (radioButton_CivilianShip_small.isSelected()) return SIZE.SMALL;
+        if (radioButton_CivilianShip_medium.isSelected()) return SIZE.MEDIUM;
+        return SIZE.BIG;
+    }
+    private FIRM utils_CivilianShip_getFirm() {
+        return this.choiceBox_CivilianShip_selectedFirm.getValue();
+    }
+    
+    @FXML private void button_CivilianShip_Add_OnClick(ActionEvent event) {
+        var firm = utils_CivilianShip_getFirm();
+        if (firm == null) {
+            utils_raiseCreationAlert();
+            return;
+        }
+        var entity = new CivilianShip(utils_CivilianShip_getSize(), utils_CivilianShip_getFirm());
+        var p = utils_createRandomPointInBounds(entity.getType().getOrigin());
+        
+        addEntityToMap(createEntityAtXY(entity, p.getX(), p.getY()));
     }
     //endregion
     
-    //region [Military Ships]
-    // TODO Like Civilian Plane
-    @FXML private Button buttonAddMilitaryShip;
-    @FXML private SIZE MilitaryShip_getSize() {return SIZE.MEDIUM;}
-    @FXML private void button_AddMilitaryShip_OnClick(ActionEvent event) {
-        addEntityToMap(new MilitaryShip(MilitaryShip_getSize()));
+    //region [Military Ships/Carrier]
+    @FXML private ChoiceBox<WEAPON> choiceBox_MilitaryShip_weapon;
+    @FXML private TextField textField_MilitaryShip_x;
+    @FXML private TextField textField_MilitaryShip_y;
+    @FXML private TextField textField_MilitaryShip_name;
+    
+    @FXML private Button button_MilitaryShip_Add;
+    @FXML private Button button_MilitaryShip_SelectRandomCoords;
+    @FXML private Button button_MilitaryShip_SelectRandomWeapon;
+    @FXML private Button button_MilitaryShip_SelectRandomName;
+    
+    private WEAPON utils_MilitaryShip_getWeapon() {
+        return choiceBox_MilitaryShip_weapon.getValue();
+    }
+    @FXML private void button_MilitaryShip_SelectRandomWeapon_OnClick(ActionEvent event) {
+        choiceBox_MilitaryShip_weapon.setValue(Database.getWeapons().get(random.nextInt(Database.getWeapons().size())));
+    }
+    @FXML private void button_MilitaryShip_SelectRandomCoords_OnClick(ActionEvent event) {
+        var point = utils_createRandomPointInBounds(Entity.TYPE.MILITARYSHIP.getOrigin());
+        textField_MilitaryShip_x.setText(String.valueOf((int) point.getX()));
+        textField_MilitaryShip_y.setText(String.valueOf((int) point.getY()));
+    }
+    @FXML private void button_MilitaryShip_SelectRandomName_OnClick(ActionEvent event) {
+        utils_SetRandomNameToField(Database.Names.Carriers, this.textField_MilitaryShip_name);
+    }
+    @FXML private void button_MilitaryShip_Add_OnClick(ActionEvent event) {
+        var weapon = utils_MilitaryShip_getWeapon();
+        var name = textField_MilitaryShip_name.getText();
+        if (weapon == null || name.isEmpty()) {
+            utils_raiseCreationAlert();
+            return;
+        }
+        
+        Database.Names.Carriers.use(name);
+        
+        var entity = new MilitaryShip(weapon, name);
+        
+        int x = utils_getXInBoundsFromField(textField_MilitaryShip_x, entity);
+        int y = utils_getYInBoundsFromField(textField_MilitaryShip_y, entity);
+        
+        this.button_MilitaryShip_SelectRandomName_OnClick(event);
+        this.button_MilitaryShip_SelectRandomCoords_OnClick(event);
+        this.button_MilitaryShip_SelectRandomWeapon_OnClick(event);
+        
+        addEntityToMap(createEntityAtXY(entity, x, y));
+        Thread thread = new Thread(entity);
+        thread.setDaemon(true);
+        thread.start();
     }
     //endregion
     
@@ -250,22 +390,38 @@ import java.util.function.Supplier;
     @FXML private Button button_Airport_SelectRandomCoords;
     @FXML private Button button_Airport_SelectRandomName;
     
-    @FXML TextField textField_Airport_x;
-    @FXML TextField textField_Airport_y;
-    @FXML TextField textField_Airport_name;
+    @FXML private TextField textField_Airport_x;
+    @FXML private TextField textField_Airport_y;
+    @FXML private TextField textField_Airport_name;
     
-    @FXML ToggleGroup toggleGroup_Airport_size;
-    @FXML RadioButton radioButton_Airport_smallSize;
-    @FXML RadioButton radioButton_Airport_mediumSize;
-    @FXML RadioButton radioButton_Airport_bigSize;
+    @FXML private ToggleGroup toggleGroup_Airport_size;
+    @FXML private RadioButton radioButton_Airport_smallSize;
+    @FXML private RadioButton radioButton_Airport_mediumSize;
+    @FXML private RadioButton radioButton_Airport_bigSize;
     
-    private SIZE Airport_getSize() {
+    private SIZE utils_Airport_getSize() {
         if (radioButton_Airport_smallSize.isSelected()) return SIZE.SMALL;
         if (radioButton_Airport_mediumSize.isSelected()) return SIZE.MEDIUM;
         return SIZE.BIG;
     }
+    @FXML private void button_Airport_SelectRandomName_OnClick(ActionEvent event) {
+        utils_SetRandomNameToField(Database.Names.Airports, textField_Airport_name);
+    }
+    @FXML private void button_Airport_SelectRandomCoords_OnClick(ActionEvent event) {
+        var point = utils_createRandomPointInBounds(Entity.TYPE.AIRPORT.getOrigin());
+        textField_Airport_x.setText(String.valueOf((int) point.getX()));
+        textField_Airport_y.setText(String.valueOf((int) point.getY()));
+    }
     @FXML private void button_Airport_Add_OnClick(ActionEvent event) {
-        var entity = new Airport(Airport_getSize());
+        var name = this.textField_Airport_name.getText();
+        if (name.isEmpty()) {
+            utils_raiseCreationAlert();
+            return;
+        }
+        Database.Names.Airports.use(name);
+        
+        var entity = new Airport(utils_Airport_getSize(), name);
+        
         int x = (int) Math.max(0, Math.min(Double.parseDouble(textField_Airport_x.getText()),
                 this.mapController.getMap().getLayoutBounds().getWidth()
                         - entity.getType().getOrigin().getX()));
@@ -274,27 +430,12 @@ import java.util.function.Supplier;
                         - entity.getType().getOrigin().getY()));
         
         addEntityToMap(createEntityAtXY(entity, x, y));
-    }
-    private String createRandomString() {
-        return random.ints(97, 123).limit(12).parallel()
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-    }
-    private Point2D createRandomXYInBounds(Point2D origin) {
-        int x = (int) (origin.getX() + random.nextInt(
-                (int) (this.mapController.getMap().getLayoutBounds().getWidth() - 5 * origin.getX())));
-        int y = (int) (origin.getY() + random.nextInt(
-                (int) (this.mapController.getMap().getLayoutBounds().getHeight() - 5 * origin.getY())));
-        return new Point2D(x, y);
-    }
-    
-    @FXML private void button_Airport_SelectRandomName_OnClick(ActionEvent event) {
-        this.textField_Airport_name.setText(createRandomString());
-    }
-    @FXML private void button_Airport_SelectRandomCoords_OnClick(ActionEvent event) {
-        var point = createRandomXYInBounds(Entity.TYPE.AIRPORT.getOrigin());
-        textField_Airport_x.setText(String.valueOf((int) point.getX()));
-        textField_Airport_y.setText(String.valueOf((int) point.getY()));
+        this.button_Airport_SelectRandomName_OnClick(event);
+        this.button_Airport_SelectRandomCoords_OnClick(event);
+        
+        Thread thread = new Thread(entity);
+        thread.setDaemon(true);
+        thread.start();
     }
     //endregion
     //endregion
@@ -313,9 +454,8 @@ import java.util.function.Supplier;
         } else if (entity instanceof MilitaryShip) {
             Database.getMilitaryShips().add((MilitaryShip) entity);
         }
-        this.mapController.addToMap(entity);
+        this.mapController.addToMap(entity.getSprite());
     }
-    
     private <T extends Entity> T createEntityAtXY(T entity, double x, double y) {
         entity.getSprite().setOnMouseClicked(e -> {
             if (entity instanceof MilitaryPlane) {
@@ -340,21 +480,13 @@ import java.util.function.Supplier;
         return entity;
     }
     
-    @FXML private <T extends Vehicle> void moveTo(ListView<T> listView, double x, double y) {
-        var entity = listView.getSelectionModel().getSelectedItem();
-        var path = entity.moveTo(x, y);
-        
-        this.mapController.getMap().getChildren().add(path);
-        entity.getTransition().setOnFinished(event -> this.mapController.getMap().getChildren().remove(path));
-        entity.getTransition().play();
-    }
     @FXML private void menu_closeTab_OnAction(ActionEvent event) {
         // Doesn't matter what i use, can't get from event action tho, so I use the first thing I can
         this.button_Airport_Add.getScene().getWindow().hide();
     }
     
     //region [Initialization]
-    private void initializeTextFields() {
+    private void initialize_TextFields() {
         Supplier<TextFormatter<Integer>> textFormatter = () -> {
             StringConverter<Integer> converter = new IntegerStringConverter() {
                 @Override public Integer fromString(String s) {
@@ -363,7 +495,7 @@ import java.util.function.Supplier;
                 }
             };
             return new TextFormatter<>(converter, 0, change -> {
-                if (change.getControlNewText().matches("([1-9][0-9]*)?")) {
+                if (change.getControlNewText().matches("([1-9][0-9]{0,2})?")) {
                     return change;
                 }
                 return null;
@@ -372,23 +504,24 @@ import java.util.function.Supplier;
         this.textField_Airport_x.setTextFormatter(textFormatter.get());
         this.textField_Airport_y.setTextFormatter(textFormatter.get());
     }
-    private void initializeListViews() {
+    private void initialize_ListViews() {
         listView_AirportDisplay.setItems(Database.getAirports());
         listView_CivilianPlaneDisplay.setItems(Database.getCivilianPlanes());
         listView_MilitaryPlaneDisplay.setItems(Database.getMilitaryPlanes());
         listView_CivilianShipDisplay.setItems(Database.getCivilianShips());
         listView_MilitaryShipDisplay.setItems(Database.getMilitaryShips());
     }
-    
-    private void initializeChoiceBoxes() {
+    private void initialize_ChoiceBoxes() {
         choiceBox_CivilianPlane_selectedAirport.setItems(Database.getAirports());
+        choiceBox_MilitaryPlane_selectedMilitaryShip.setItems(Database.getMilitaryShips());
+        choiceBox_CivilianShip_selectedFirm.setItems(Database.getFirms());
+        choiceBox_MilitaryShip_weapon.setItems(Database.getWeapons());
     }
-    
-    public void init(MapController mapController) { this.mapController = mapController; }
+    public void initialize_MapController(MapController mapController) { this.mapController = mapController; }
     @Override public void initialize(URL location, ResourceBundle resources) {
-        initializeChoiceBoxes();
-        initializeTextFields();
-        initializeListViews();
+        initialize_ChoiceBoxes();
+        initialize_TextFields();
+        initialize_ListViews();
     }
     //endregion
 }

@@ -1,9 +1,9 @@
-import classes.Entity;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -46,7 +46,7 @@ import java.util.ResourceBundle;
             Parent root = loader.load();
             
             this.controlPanelController = loader.getController();
-            this.controlPanelController.init(this);
+            this.controlPanelController.initialize_MapController(this);
             this.controlPanelStage = new Stage();
             
             controlPanelStage.setTitle("Panel Sterowania");
@@ -57,10 +57,10 @@ import java.util.ResourceBundle;
         } catch (IOException e) { e.printStackTrace(); }
     }
     
-    public void addToMap(Entity entity) {
-        this.map.getChildren().add(entity.getSprite());
+    public <T extends Node> void addToMap(T node) {
+        this.map.getChildren().add(node);
     }
-    public void removeFromMap(Entity entity) {
-        this.map.getChildren().remove(entity.getSprite());
+    public <T extends Node> void removeFromMap(T node) {
+        this.map.getChildren().remove(node);
     }
 }

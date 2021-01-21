@@ -11,7 +11,7 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Control Panel">
+          <Menu mnemonicParsing="false" text="Panel Sterowania">
             <items>
               <MenuItem fx:id="menuItem_MenuBar_openControlPanel" mnemonicParsing="false" onAction="#menuItem_MenuBar_openControlPanel_OnAction" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />

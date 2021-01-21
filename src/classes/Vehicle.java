@@ -4,6 +4,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
 public abstract class Vehicle extends Entity {
     private final PathTransition transition = new PathTransition();
@@ -11,6 +12,7 @@ public abstract class Vehicle extends Entity {
     
     public Vehicle(TYPE type) {
         super(type);
+        transition.setDuration(Duration.seconds(2));
         transition.setNode(this.getSprite());
         transition.setInterpolator(Interpolator.EASE_BOTH);
         transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);

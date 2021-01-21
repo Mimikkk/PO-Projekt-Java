@@ -17,6 +17,8 @@ public abstract class Entity implements Runnable {
     private final int id;
     private final TYPE type;
     
+    private boolean isRunning = true;
+    
     public Entity(final TYPE type) {
         var svg = new SVGPath();
         svg.setContent(type.getSvg());
@@ -42,11 +44,11 @@ public abstract class Entity implements Runnable {
             if (observable.getValue().booleanValue()) {
                 tooltip.setText(
                         "Nazwa: "
-                                + this.type.
-                                name()
+                                + toString()
                                 + "\nPozycja: "
                                 + "x: " + sprite.getTranslateX()
                                 + ", y: " + sprite.getTranslateY() + "\nID: " + this.id);
+                
                 
                 tooltip.show(sprite,
                         sprite.getTranslateX()
@@ -63,7 +65,15 @@ public abstract class Entity implements Runnable {
     public int getID() { return this.id; }
     public TYPE getType() { return this.type; }
     public SVGPath getSprite() { return sprite; }
-    @Override public String toString() { return type.name + " '" + id + "'"; }
+    @Override public String toString() { return type.getName() + " '" + id + "'"; }
+    
+    protected boolean isRunning() {
+        return isRunning;
+    }
+    
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
     
     public enum TYPE {
         CIVILIANPLANE("Samolot Pasażerski", new Point2D(25, 25), "M 49.3 26.706 C 48.032 28.06 45.228 28.738 40.884 28.738 L 30.39 28.738 L 17.21 49.508 L 17.102 49.674 C 16.898 49.892 16.666 50 16.402 50 L 13.604 49.998 C 13.342 50 13.11 49.892 12.904 49.672 C 12.598 49.346 12.518 48.98 12.664 48.574 L 19.244 28.736 L 8.532 28.738 C 6.056 33.504 4.714 35.996 4.508 36.214 C 4.306 36.432 4.072 36.542 3.81 36.542 L 1.012 36.542 C 0.75 36.542 0.518 36.434 0.314 36.214 C 0.05 35.936 -0.038 35.592 0.05 35.188 L 2.784 25.024 L 0.05 14.858 C -0.064 14.454 0.016 14.104 0.292 13.808 C 0.494 13.592 0.728 13.48 0.992 13.48 L 3.81 13.458 C 4.072 13.458 4.306 13.568 4.508 13.786 C 4.714 14.004 6.056 16.496 8.532 21.262 L 19.244 21.264 L 12.664 1.426 C 12.518 1.02 12.598 0.654 12.904 0.328 C 13.11 0.108 13.34 0.002 13.604 0.002 L 16.402 0 C 16.664 0.002 16.896 0.11 17.1 0.328 C 17.16 0.392 17.196 0.444 17.21 0.492 L 30.39 21.262 L 40.884 21.262 C 45.228 21.262 48.032 21.94 49.3 23.294 C 49.766 23.792 50 24.362 50 25.002 C 50 25.638 49.766 26.208 49.3 26.706 Z"),
